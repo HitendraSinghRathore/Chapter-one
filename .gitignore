@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+
+backend/node_modules
+backend/dist
+backend/.env
+backend/.vscode/
+
+frontend/chapter-one/node_modules
+frontend/chapter-one/dist
+frontend/chapter-one/.angular/
+frontend/chapter-one/.vscode/
