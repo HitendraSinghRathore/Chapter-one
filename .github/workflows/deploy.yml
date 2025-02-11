@@ -57,6 +57,6 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      # - name: Trigger Render Deployment
-      #   if: steps.build.outcome == 'success'
-      #   run: curl -X POST ${{ secrets.RENDER_HOOK }}
+      - name: Trigger Render Deployment
+        if: steps.build.outcome == 'success'
+        run: curl -X POST ${{ secrets.RENDER_HOOK }}
