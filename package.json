@@ -1,6 +1,7 @@
 {
   "scripts": {
     "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend/chapter-one && npm run lint",
     "prepare": "husky"
   },
   "devDependencies": {

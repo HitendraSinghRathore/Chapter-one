@@ -1,2 +1,5 @@
 echo "linting backend"
 npm run lint:backend
+
+echo "linting frontend"
+npm run lint:frontend
