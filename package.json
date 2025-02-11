@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "lint:backend": "cd backend && npm run lint",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

@@ -1,0 +1,2 @@
+echo "linting backend"
+npm run lint:backend

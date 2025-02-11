@@ -1,0 +1,31 @@
+{
+  "name": "chapter-one-backend",
+  "version": "1.0.0",
+  "description": "Node TS project",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "eslint": "^9.20.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
