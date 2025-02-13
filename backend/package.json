@@ -2,11 +2,11 @@
   "name": "chapter-one-backend",
   "version": "1.0.0",
   "description": "Node TS project",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "build": "tsc",
-    "start": "node index.js",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "start": "node main.js",
+    "dev": "nodemon --exec ts-node src/main.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write src/**/*.ts"
@@ -17,7 +17,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/convict": "^6.1.6",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/mongoose": "^5.11.96",
+    "@types/sequelize": "^4.28.20",
     "eslint": "^9.20.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.0",
@@ -26,6 +30,12 @@
     "typescript-eslint": "^8.24.0"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "convict": "^6.2.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.10.0",
+    "sequelize": "^6.37.5"
   }
 }
