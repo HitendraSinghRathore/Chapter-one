@@ -1,6 +1,5 @@
 import convict, { Path } from 'convict';
 
-// Define interfaces for type safety
 interface PostgresConfig {
   host: string;
   port: number;
@@ -95,11 +94,6 @@ class Config {
     this.config.validate({ allowed: 'strict' });
   }
 
-  /**
-   * Retrieve any configuration value by key.
-   * Casting the return value through `unknown` avoids the type error.
-   * @param key The configuration key.
-   */
   public get<T>(key: Path<AppConfig>): T {
     return this.config.get(key) as unknown as T;
   }
