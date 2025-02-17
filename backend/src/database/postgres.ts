@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 import config from '../config';
 import { initUserModel } from '../models/User';
+import { seedAdmin } from './seedAdmin';
 
 const { host, port, database, user, password } = config.postgres;
 
@@ -25,6 +26,10 @@ export async function syncDatabase(force = false): Promise<void> {
 
     await sequelize.sync({ force });
     console.log('All models synchronized successfully.');
+
+    // starting seeding admin
+    await seedAdmin();
+    console.log('Admin user seeded successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
     process.exit(1);

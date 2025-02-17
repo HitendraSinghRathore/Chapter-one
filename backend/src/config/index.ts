@@ -53,6 +53,27 @@ class Config {
           sensitive: true
         }
       },
+      admin: {
+        email: {
+          doc: 'Admin email',
+          format: String,
+          default: 'admin@example.com',
+          env: 'ADMIN_EMAIL'
+        },
+        password: {
+          doc: 'Admin password',
+          format: String,
+          default: 'password',
+          env: 'ADMIN_PASSWORD',
+          sensitive: true
+        },
+        mobile: {
+          doc: 'Admin mobile number',
+          format: String,
+          default: '+xxxxxxxxx',
+          env: 'ADMIN_MOBILE'
+        }
+      },
       mongo: {
         uri: {
           doc: 'MongoDB connection URI',

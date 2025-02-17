@@ -12,6 +12,12 @@ interface PostgresConfig {
    interface AuthConfig {
       jwtSecret: string; 
   }
+  interface AdminConfig {
+    email: string;
+    password: string;
+    mobile: string;
+
+  }
   
   interface AppConfig {
     port: number;
@@ -19,10 +25,12 @@ interface PostgresConfig {
     postgres: PostgresConfig;
     mongo: MongoConfig;
     auth: AuthConfig;
+    admin: AdminConfig;
   }
   interface DecodedUser {
     id: number;
     email: string;
+    mobile: string;
     role: 'admin' | 'regular';
     iat?: number;
     exp?: number;
@@ -32,5 +40,6 @@ interface PostgresConfig {
     MongoConfig,
     AuthConfig,
     AppConfig,
-    DecodedUser
+    DecodedUser,
+    AdminConfig
   }

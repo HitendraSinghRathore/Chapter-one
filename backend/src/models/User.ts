@@ -5,6 +5,7 @@ interface UserAttributes {
     id: number;
     email: string;
     passwordHash: string;
+    mobile: string;
     role: 'admin' | 'regular';
     createdAt?: Date;
     updatedAt?: Date;
@@ -18,6 +19,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes>
   public id!: number;
   public email!: string;
   public passwordHash!: string;
+  public mobile!: string;
   public role!: 'admin' | 'regular';
 
   public readonly createdAt!: Date;
@@ -37,6 +39,10 @@ export function initUserModel(sequelize: Sequelize): typeof User {
           type: DataTypes.STRING(255),
           allowNull: false,
           unique: true, 
+        },
+        mobile: {
+          type: DataTypes.STRING(15),
+          allowNull: false,
         },
         passwordHash: {
           type: DataTypes.STRING(255),
