@@ -28,22 +28,20 @@ interface PostgresConfig {
     auth: AuthConfig;
     admin: AdminConfig;
   }
-  interface DecodedUser {
-    id: number;
-    name: string;
-    email: string;
-    mobile: string;
-    role: 'admin' | 'regular';
+  interface AuthUser {
+    id: string | number;
+    name?: string;
+    email?: string;
+    mobile?: string;
+    role?: 'admin' | 'regular';
     iat?: number;
     exp?: number;
   }
- type AuthUser = DecodedUser | { id: string };
   export {
     PostgresConfig,
     MongoConfig,
     AuthConfig,
     AppConfig,
-    DecodedUser,
     AdminConfig,
     AuthUser
   }

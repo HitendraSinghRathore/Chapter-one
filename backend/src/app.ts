@@ -1,8 +1,9 @@
+import './types/shim';
 import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import path from 'path';
-
+import authRoutes from './router/auth.routes';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/auth',authRoutes);
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))

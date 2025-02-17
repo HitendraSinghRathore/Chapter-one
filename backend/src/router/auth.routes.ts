@@ -41,7 +41,7 @@ router.post(
 router.post(
   '/login',
   [
-    check('email').isEmail().withMessage('Valid email is required'),
+    check('loginValue').notEmpty().withMessage('Valid email or mobile is required'),
     check('password').notEmpty().withMessage('Password is required'),
   ],
   asyncHandler(AuthController.login)

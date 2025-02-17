@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config';
-import { AuthConfig, DecodedUser } from '../types/interface.types';
+import { AuthConfig, AuthUser } from '../types/interface.types';
 
 export function authMiddleware(roles?: Array<'admin' | 'regular'>):RequestHandler {
   return (req: Request, res: Response, next: NextFunction):void => {
@@ -25,11 +25,11 @@ export function authMiddleware(roles?: Array<'admin' | 'regular'>):RequestHandle
         const decoded = jwt.verify(
           token,
           config.get<AuthConfig>('auth').jwtSecret
-        ) as DecodedUser;
+        ) as AuthUser;
         req.user = decoded;
 
        
-        if (!roles.includes(decoded.role)) {
+        if (!roles.includes(decoded.role as 'admin' | 'regular')) {
            res.status(403).json({ message: 'Forbidden: insufficient role' });
            return
         }
@@ -45,13 +45,13 @@ export function authMiddleware(roles?: Array<'admin' | 'regular'>):RequestHandle
           const decoded = jwt.verify(
             token,
             config.get<AuthConfig>('auth').jwtSecret
-          ) as DecodedUser;
+          ) as AuthUser;
           req.user = decoded;
         }
       } else if (sessionIdHeader) {
       
         if (typeof sessionIdHeader === 'string') {
-          req.user = { id: sessionIdHeader };
+          req.user = { id: sessionIdHeader, role: 'regular' };
         }
       } else {
          res.status(401).json({ message: 'No session token provided' });

@@ -1,4 +1,4 @@
-import { AuthUser } from '../middleware/auth.middleware';
+import { AuthUser } from './interface.types';
 
 declare module 'express-serve-static-core' {
   interface Request {
