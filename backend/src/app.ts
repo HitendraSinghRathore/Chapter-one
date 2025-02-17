@@ -23,5 +23,10 @@ app.get('/healthz', (req: Request, res: Response) => {
     res.status(200).json({ status: 'OK', message: 'Service is healthy' });
   });
 
+app.use((err: Error, req: Request, res: Response) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  });
+
 
 export default app;

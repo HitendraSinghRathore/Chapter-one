@@ -72,6 +72,13 @@ class Config {
           format: String,
           default: '+xxxxxxxxx',
           env: 'ADMIN_MOBILE'
+        },
+        name: {
+          doc: 'Admin name',
+          format: String,
+          default: 'Admin',
+          env: 'ADMIN_NAME'
+
         }
       },
       mongo: {

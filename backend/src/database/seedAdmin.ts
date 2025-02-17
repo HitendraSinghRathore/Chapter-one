@@ -4,7 +4,7 @@ import { User } from '../models/User';
 import { AdminConfig } from '../types/interface.types';
 
 export async function seedAdmin(): Promise<void> {
-  const { email, password, mobile } = config.get<AdminConfig>('admin');
+  const { email, password, mobile,name } = config.get<AdminConfig>('admin');
 
   try {
     const saltRounds = 10;
@@ -15,6 +15,7 @@ export async function seedAdmin(): Promise<void> {
       defaults: {
         email,
         mobile,
+        name,
         passwordHash: hashedPassword,
         role: 'admin',
       },

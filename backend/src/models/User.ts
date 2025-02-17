@@ -3,6 +3,7 @@ import type { Sequelize } from 'sequelize';
 
 interface UserAttributes {
     id: number;
+    name: string;
     email: string;
     passwordHash: string;
     mobile: string;
@@ -17,6 +18,7 @@ type UserCreationAttributes = Optional<UserAttributes, 'id' | 'createdAt' | 'upd
 export class User extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes {
   public id!: number;
+  public name!: string;
   public email!: string;
   public passwordHash!: string;
   public mobile!: string;
@@ -34,6 +36,10 @@ export function initUserModel(sequelize: Sequelize): typeof User {
           type: DataTypes.INTEGER,
           autoIncrement: true,
           primaryKey: true,
+        },
+        name: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
         },
         email: {
           type: DataTypes.STRING(255),
