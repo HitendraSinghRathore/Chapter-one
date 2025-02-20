@@ -75,7 +75,7 @@ export function initUserModel(sequelize: Sequelize): typeof User {
       {
         sequelize,
         tableName: 'users',
-        timestamps: false, 
+        timestamps: true, 
         indexes: [
           {
             name: 'users_email_unique_index',
@@ -85,6 +85,11 @@ export function initUserModel(sequelize: Sequelize): typeof User {
           {
             name: 'users_role_index',
             fields: ['role'],
+          },
+          {
+            name: 'users_mobile_unique_index',
+            fields: ['mobile'],
+            unique: true,
           },
         ],
       }

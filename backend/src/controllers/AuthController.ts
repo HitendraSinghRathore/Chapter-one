@@ -38,7 +38,7 @@ export default class AuthController {
       });
     } catch (error) {
       console.error('Signup error:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+      throw error;
     }
   }
 
@@ -88,7 +88,7 @@ export default class AuthController {
       });
     } catch (error) {
       console.error('Login error:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+      throw error;
     }
   }
 

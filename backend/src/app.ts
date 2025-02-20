@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import path from 'path';
 import authRoutes from './router/auth.routes';
+import genreRoutes from './router/genre.routes';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/auth',authRoutes);
+app.use('/api/genres',genreRoutes);
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
