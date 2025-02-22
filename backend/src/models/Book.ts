@@ -1,5 +1,5 @@
 import { Model, DataTypes, Optional } from 'sequelize';
-import type { BelongsToManyGetAssociationsMixin, BelongsToManySetAssociationsMixin, Sequelize } from 'sequelize';
+import type { BelongsToManyAddAssociationMixin, BelongsToManyCountAssociationsMixin, BelongsToManyGetAssociationsMixin, BelongsToManyRemoveAssociationsMixin, BelongsToManySetAssociationsMixin, Sequelize } from 'sequelize';
 import { Genre } from './Genre';
 
 export interface BookAttributes {
@@ -42,6 +42,9 @@ export class Book extends Model<BookAttributes, BookCreationAttributes> implemen
 
   public setGenres!: BelongsToManySetAssociationsMixin<Genre, number>;
   public getGenres!: BelongsToManyGetAssociationsMixin<Genre>;
+  public removeGenre!: BelongsToManyRemoveAssociationsMixin<Genre, number>;
+  public getGenresCount!: BelongsToManyCountAssociationsMixin;
+  public addGenre!: BelongsToManyAddAssociationMixin<Genre, number>;
 }
 
 export function initBookModel(sequelize: Sequelize): typeof Book {

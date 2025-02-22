@@ -30,10 +30,10 @@ router.delete('/:id', [
     param('id').isInt().withMessage('Invalid genre id')
 ], authMiddleware(['admin']), asyncHandler(GenreController.deleteGenres));
 
-// router.post('/genres/transfer',[
-//     check('sourceId').isInt().withMessage('Invalid source genre id'),
-//     check('destinationId').isInt().withMessage('Invalid destination genre id')
-// ],authMiddleware(['admin']), asyncHandler(GenreController.transferGenre));
+router.post('/genres/transfer',[
+    check('sourceId').isInt().withMessage('Invalid source genre id'),
+    check('destinationId').isInt().withMessage('Invalid destination genre id')
+],authMiddleware(['admin']), asyncHandler(GenreController.transferGenre));
 
 
 export default router;

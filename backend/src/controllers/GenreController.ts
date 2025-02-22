@@ -92,12 +92,16 @@ export default class GenreController {
         }
         const id = parseInt(req.params.id, 10);
         try {
-            //         const associatedBooksCount = await Book.count({ where: { genre: id } });
-            // if (associatedBooksCount > 0) {
-            //   return res.status(400).json({
-            //     message: 'Cannot delete genre: it is associated with one or more books.'
-            //   });
-            // }
+            const sourceGenre = await Genre.findByPk(id);
+            if (!sourceGenre) {
+                return res.status(404).json({ message: 'Genre not found' });
+            }
+            const associatedBooksCount = await sourceGenre.getBooksCount();
+            if (associatedBooksCount > 0) {
+              return res.status(400).json({
+                message: 'Cannot delete genre: it is associated with one or more books.'
+              });
+            }
             const genre = await Genre.destroy({ where: { id } });
             return res.status(200).json(genre);
         } catch (error) {
@@ -105,23 +109,31 @@ export default class GenreController {
             throw error;
         }
     }
-    // static async transferGenre(req: Request, res: Response): Promise<Response> {
-    //     const errors = validationResult(req);
-    //     if (!errors.isEmpty()) {
-    //         return res.status(400).json({ errors: errors.array() });
-    //     }
-    //     const { sourceId, destinationId } = req.body;
-    //     try {
-    //        const sourceGenre = await Genre.findByPk(sourceId);
-    //        const destinationGenre = await Genre.findByPk(destinationId);
-    //         if(!sourceGenre || !destinationGenre) {
-    //             return res.status(400).json({ message: 'Please add valid genres' });
-    //         }
-    //         // await Book.update({ genre: destinationId }, { where: { genre: sourceId } });
-    //         // return res.status(200).json({ message: 'Genre transfer successful' });
-    //     } catch (error) {
-    //         console.error('Error while transferring genre:', error);
-    //         throw error;
-    //     }
-    // }
+    static async transferGenre(req: Request, res: Response): Promise<Response> {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+        const { sourceId, destinationId } = req.body;
+        try {
+          const sourceGenre = await Genre.findByPk(sourceId);
+          const destinationGenre = await Genre.findByPk(destinationId);
+          if (!sourceGenre || !destinationGenre) {
+            return res.status(400).json({ message: 'Please add valid genres' });
+          }
+          const books = await sourceGenre.getBooks();
+          for (const book of books) {
+            await book.removeGenre([sourceGenre]);
+            const associatedGenres = await book.getGenres();
+            const alreadyAssociated = associatedGenres.some((g) => g.id === destinationGenre.id);
+            if (!alreadyAssociated) {
+              await book.addGenre(destinationGenre);
+            }
+          }
+          return res.status(200).json({ message: 'Genre transfer successful' });
+        } catch (error) {
+          console.error('Error while transferring genre:', error);
+          throw error;
+        }
+      }
 }

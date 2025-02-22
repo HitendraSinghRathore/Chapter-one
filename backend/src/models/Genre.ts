@@ -1,5 +1,6 @@
 import { Model, DataTypes, Optional } from 'sequelize';
-import type { Sequelize } from 'sequelize';
+import type { BelongsToManyCountAssociationsMixin, BelongsToManyGetAssociationsMixin, BelongsToManyRemoveAssociationsMixin, Sequelize } from 'sequelize';
+import { Book } from './Book';
 
 interface GenreAttributes {
     id: number;
@@ -20,6 +21,10 @@ export class Genre extends Model<GenreAttributes, GenreCreationAttributes>
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public getBooks!: BelongsToManyGetAssociationsMixin<Book>;
+  public removeBooks!: BelongsToManyRemoveAssociationsMixin<Book, number>;
+  public getBooksCount!: BelongsToManyCountAssociationsMixin;
 }
 
 
