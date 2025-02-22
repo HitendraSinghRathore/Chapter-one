@@ -2,8 +2,11 @@ import { Sequelize } from 'sequelize';
 import config from '../config';
 import { initUserModel } from '../models/User';
 import { seedAdmin } from './seedAdmin';
-import { initGenreModel } from '../models/Genre';
-import { initAuthorModel } from '../models/Author';
+import { Genre, initGenreModel } from '../models/Genre';
+import { Author, initAuthorModel } from '../models/Author';
+import { initAddressModel } from '../models/Address';
+import { Book, initBookModel } from '../models/Book';
+import { Collection, initCollectionModel } from '../models/Collection';
 
 const { host, port, database, user, password } = config.postgres;
 
@@ -21,6 +24,18 @@ export function initModels(): void {
     initUserModel(sequelize);
     initGenreModel(sequelize);
     initAuthorModel(sequelize);
+    initAddressModel(sequelize);
+    initBookModel(sequelize);
+    initCollectionModel(sequelize);
+
+    Book.belongsTo(Author, { foreignKey: 'authorId', as: 'author' });
+    Author.hasMany(Book, { foreignKey: 'authorId', as: 'books' });
+
+    Book.belongsToMany(Genre, { through: 'BookGenres', as: 'genres' });
+    Genre.belongsToMany(Book, { through: 'BookGenres', as: 'books' });
+
+    Collection.belongsToMany(Book, { through: 'CollectionBooks', as: 'books' });
+    Book.belongsToMany(Collection, { through: 'CollectionBooks', as: 'collections' });
    
 }
 export async function syncDatabase(force = false): Promise<void> {

@@ -6,6 +6,9 @@ import path from 'path';
 import authRoutes from './router/auth.routes';
 import genreRoutes from './router/genre.routes';
 import authorRoutes from './router/author.routes';
+import addressRoutes from './router/address.routes';
+import imageRoutes from './router/image.routes';
+import bookRoutes from './router/book.routes';
 const app = express();
 
 app.use(helmet());
@@ -18,6 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth',authRoutes);
 app.use('/api/genres',genreRoutes);
 app.use('/api/authors',authorRoutes);
+app.use('/api/addresses',addressRoutes);
+app.use('/api/images',imageRoutes);
+app.use('/api/books',bookRoutes);
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
