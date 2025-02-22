@@ -9,6 +9,7 @@ import authorRoutes from './router/author.routes';
 import addressRoutes from './router/address.routes';
 import imageRoutes from './router/image.routes';
 import bookRoutes from './router/book.routes';
+import collectionRoutes from './router/collection.routes';
 const app = express();
 
 app.use(helmet());
@@ -24,6 +25,7 @@ app.use('/api/authors',authorRoutes);
 app.use('/api/addresses',addressRoutes);
 app.use('/api/images',imageRoutes);
 app.use('/api/books',bookRoutes);
+app.use('/api/collections',collectionRoutes);
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
