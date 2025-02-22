@@ -2,6 +2,8 @@ import { Sequelize } from 'sequelize';
 import config from '../config';
 import { initUserModel } from '../models/User';
 import { seedAdmin } from './seedAdmin';
+import { initGenreModel } from '../models/Genre';
+import { initAuthorModel } from '../models/Author';
 
 const { host, port, database, user, password } = config.postgres;
 
@@ -17,6 +19,8 @@ export const sequelize = new Sequelize(database, user, password, {
 
 export function initModels(): void {
     initUserModel(sequelize);
+    initGenreModel(sequelize);
+    initAuthorModel(sequelize);
    
 }
 export async function syncDatabase(force = false): Promise<void> {

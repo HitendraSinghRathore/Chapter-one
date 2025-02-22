@@ -14,7 +14,9 @@ export default class GenreController {
             if (!genre) {
                 return res.status(404).json({ message: 'Genre not found' });
             }
-            return res.status(200).json(genre);
+            return res.status(200).json({
+                data: genre,
+            });
         } catch (error) {
             console.error('Error while fetching genre:', error);
             throw error;
@@ -29,15 +31,26 @@ export default class GenreController {
 
             const { page, limit } = req.query as { page: string; limit: string };
             
-            if (!page || !limit) {
-                const genres = await Genre.findAll();
-                return res.status(200).json(genres);
+            if (!page && !limit) {
+                const genres = await Genre.findAll({order: [['updatedAt', 'DESC']]});
+                return res.status(200).json({
+                    data: genres,
+                });
             }
-            const genres = await Genre.findAll({
+            const {count, rows: genres} = await Genre.findAndCountAll({
                 limit: parseInt(limit, 10),
-                offset: parseInt(page, 10) * parseInt(limit, 10)
+                offset: parseInt(page, 10) * parseInt(limit, 10),
+                order: [['updatedAt', 'DESC']]
             });
-            return res.status(200).json(genres);
+            return res.status(200).json({
+                data: genres,
+                total: count,
+                page: page,
+                limit: limit,
+                pages: Math.ceil(count / parseInt(limit, 10)),
+                hasNextPage: parseInt(page, 10) < Math.ceil(count / parseInt(limit, 10)),
+                hasPreviousPage: parseInt(page, 10) > 0
+            });
         } catch (error) {
             console.error('Error while fetching genres:', error);
             throw error;
@@ -79,7 +92,7 @@ export default class GenreController {
         }
         const id = parseInt(req.params.id, 10);
         try {
-            //         const associatedBooksCount = await Book.count({ where: { genreId: id } });
+            //         const associatedBooksCount = await Book.count({ where: { genre: id } });
             // if (associatedBooksCount > 0) {
             //   return res.status(400).json({
             //     message: 'Cannot delete genre: it is associated with one or more books.'
@@ -99,7 +112,12 @@ export default class GenreController {
     //     }
     //     const { sourceId, destinationId } = req.body;
     //     try {
-    //         // await Book.update({ genreId: destinationId }, { where: { genreId: sourceId } });
+    //        const sourceGenre = await Genre.findByPk(sourceId);
+    //        const destinationGenre = await Genre.findByPk(destinationId);
+    //         if(!sourceGenre || !destinationGenre) {
+    //             return res.status(400).json({ message: 'Please add valid genres' });
+    //         }
+    //         // await Book.update({ genre: destinationId }, { where: { genre: sourceId } });
     //         // return res.status(200).json({ message: 'Genre transfer successful' });
     //     } catch (error) {
     //         console.error('Error while transferring genre:', error);

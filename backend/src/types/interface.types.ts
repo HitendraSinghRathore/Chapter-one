@@ -37,11 +37,18 @@ interface PostgresConfig {
     iat?: number;
     exp?: number;
   }
+   interface GridFSFile {
+    id: string | number;
+    filename?: string;
+    bucketName?: string;
+   
+  }
   export {
     PostgresConfig,
     MongoConfig,
     AuthConfig,
     AppConfig,
     AdminConfig,
-    AuthUser
+    AuthUser,
+    GridFSFile
   }

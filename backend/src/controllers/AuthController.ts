@@ -94,6 +94,8 @@ export default class AuthController {
 
 
   static async logout(req: Request, res: Response): Promise<Response> {
-    return res.status(200).json({ message: 'Logout successful' });
-  }
+   
+     return res.status(200).json({ message: 'Logout successful' });
+   
+}
 }

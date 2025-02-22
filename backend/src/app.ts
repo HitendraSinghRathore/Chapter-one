@@ -1,11 +1,11 @@
 import './types/shim';
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import path from 'path';
 import authRoutes from './router/auth.routes';
 import genreRoutes from './router/genre.routes';
-
+import authorRoutes from './router/author.routes';
 const app = express();
 
 app.use(helmet());
@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/auth',authRoutes);
 app.use('/api/genres',genreRoutes);
+app.use('/api/authors',authorRoutes);
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
@@ -27,7 +28,8 @@ app.get('/healthz', (req: Request, res: Response) => {
     res.status(200).json({ status: 'OK', message: 'Service is healthy' });
   });
 
-app.use((err: Error, req: Request, res: Response) => {
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error('Unhandled error:', err);
     res.status(500).json({ message: 'Internal Server Error' });
   });
