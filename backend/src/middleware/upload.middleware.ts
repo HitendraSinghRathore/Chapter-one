@@ -5,11 +5,22 @@ import config from '../config';
 
 const gridFsStorage = new GridFsStorage({
   url: config.mongo.uri,
+  options:{ useUnifiedTopology: true},
   file: (req, file) => {
-    return {
-      bucketName: 'uploads',
-      filename: `${Date.now()}-${file.originalname}`,
-    };
+    return new Promise((resolve, reject) => { 
+      try {
+      const filename = `${Date.now()}-${file.originalname}`;
+      const fileInfo = {
+        filename: filename,
+        bucketName: 'uploads',
+        metadata: { fieldname: file.fieldname, originalname: file.originalname, mimetype: file.mimetype }, 
+      };
+      resolve(fileInfo);
+    } catch (error) {
+      console.error('Error while uploading file to GridFS:', error);
+      reject(error)
+    }
+    });
   },
 });
 

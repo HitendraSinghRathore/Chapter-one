@@ -1,21 +1,19 @@
-import { MongoClient, Db, ObjectId } from 'mongodb';
-import Grid from 'gridfs-stream';
+import { MongoClient, Db, ObjectId,GridFSBucket } from 'mongodb';
 import config from '../config';
 
-let gfs: Grid.Grid;
 let db: Db;
+let bucket: GridFSBucket;
 
 const mongoURI = config.mongo.uri;
 console.log('Setting up mongo DB');
 MongoClient.connect(mongoURI)
   .then(client => {
     db = client.db();
-    gfs = Grid(db, client);
-    gfs.collection('uploads');
+    bucket = new GridFSBucket(db, { bucketName: 'uploads' });
     console.log('GridFS initialized');
   })
   .catch(err => {
     console.error('Error connecting to MongoDB for GridFS:', err);
   });
 
-export { gfs, db, ObjectId };
+export { bucket, db, ObjectId };
