@@ -6,6 +6,7 @@ import config from '../config';
 import { User } from '../models/User';
 import { AuthConfig } from '../types/interface.types';
 import { Op } from 'sequelize';
+import { mergeAnonymousData } from '../services/AnonymousMerge.service';
 
 export default class AuthController {
 
@@ -81,6 +82,14 @@ export default class AuthController {
       );
 
       res.setHeader('Authorization', `Bearer ${token}`);
+      const anonId = req.headers['x-session-id'];
+      if (anonId && typeof anonId === 'string') {
+        try {
+          await mergeAnonymousData(anonId, user.id.toString());
+        } catch (err) {
+          console.error('Error merging anonymous data:', err);
+        }
+      }
       return res.status(200).json({
         message: 'Login successful',
         token,

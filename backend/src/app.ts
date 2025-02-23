@@ -10,7 +10,12 @@ import addressRoutes from './router/address.routes';
 import imageRoutes from './router/image.routes';
 import bookRoutes from './router/book.routes';
 import collectionRoutes from './router/collection.routes';
+import cartRoutes from './router/cart.routes';
+import profileRoutes from './router/profile.routes';
+import orderRoutes from './router/order.routes';
+
 const app = express();
+
 
 app.use(helmet());
 app.use(cors());
@@ -26,6 +31,10 @@ app.use('/api/addresses',addressRoutes);
 app.use('/api/images',imageRoutes);
 app.use('/api/books',bookRoutes);
 app.use('/api/collections',collectionRoutes);
+app.use('/api/carts',cartRoutes);
+app.use('/api/profile',profileRoutes);
+app.use('/api/orders',orderRoutes);
+
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))

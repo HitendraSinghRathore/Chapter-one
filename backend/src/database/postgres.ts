@@ -7,6 +7,10 @@ import { Author, initAuthorModel } from '../models/Author';
 import { initAddressModel } from '../models/Address';
 import { Book, initBookModel } from '../models/Book';
 import { Collection, initCollectionModel } from '../models/Collection';
+import { Cart, initCartModel } from '../models/Cart';
+import { CartItem, initCartItemModel } from '../models/CartItem';
+import { initOrderModel, Order } from '../models/Order';
+import { initOrderItemModel, OrderItem } from '../models/OrderItems';
 
 const { host, port, database, user, password } = config.postgres;
 
@@ -27,6 +31,10 @@ export function initModels(): void {
     initAddressModel(sequelize);
     initBookModel(sequelize);
     initCollectionModel(sequelize);
+    initCartModel(sequelize);
+    initCartItemModel(sequelize);
+    initOrderModel(sequelize);
+    initOrderItemModel(sequelize);
 
     Book.belongsTo(Author, { foreignKey: 'authorId', as: 'author' });
     Author.hasMany(Book, { foreignKey: 'authorId', as: 'books' });
@@ -36,6 +44,17 @@ export function initModels(): void {
 
     Collection.belongsToMany(Book, { through: 'CollectionBooks', as: 'books' });
     Book.belongsToMany(Collection, { through: 'CollectionBooks', as: 'collections' });
+
+    Cart.hasMany(CartItem, { foreignKey: 'cartId', as: 'items' });
+    CartItem.belongsTo(Cart, { foreignKey: 'cartId', as: 'cart' });
+
+    CartItem.belongsTo(Book, { foreignKey: 'bookId', as: 'book' });
+    Book.hasMany(CartItem, { foreignKey: 'bookId', as: 'cartItems' });
+
+    Order.hasMany(OrderItem, { foreignKey: 'orderId', as: 'items' });
+    OrderItem.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
+    OrderItem.belongsTo(Book, { foreignKey: 'bookId', as: 'book' });
+    Book.hasMany(OrderItem, { foreignKey: 'bookId', as: 'orderItems' });
    
 }
 export async function syncDatabase(force = false): Promise<void> {
