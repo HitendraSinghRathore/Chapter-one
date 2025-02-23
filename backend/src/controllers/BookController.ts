@@ -39,8 +39,16 @@ export default class BookController {
         image: imageRef,
         authorId,
       });
-      if (genres && Array.isArray(genres) && genres.length > 0) {
+      if (genres) {
+        if(typeof genres === 'string') { 
+          const genresData= JSON.parse(genres);
+          await book.setGenres(genresData);
+        }
+         if (Array.isArray(genres)) {
+  
         await book.setGenres(genres);
+    }
+       
       }
       return res.status(201).json(book);
     } catch (error) {
@@ -101,7 +109,7 @@ export default class BookController {
     try {
       const book = await Book.findByPk(id, {
         include: [
-          { model: Genre, as: 'genres', through: { attributes: [] } },
+          { model: Genre, as: 'genres', through: { attributes: ['GenreId'] } },
           { model: Author, as: 'author' },
         ],
       });
