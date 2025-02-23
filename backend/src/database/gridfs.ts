@@ -6,7 +6,7 @@ let bucket: GridFSBucket;
 
 const mongoURI = config.mongo.uri;
 console.log('Setting up mongo DB');
-MongoClient.connect(mongoURI)
+MongoClient.connect(mongoURI, { serverSelectionTimeoutMS: 5000 })
   .then(client => {
     db = client.db();
     bucket = new GridFSBucket(db, { bucketName: 'uploads' });
