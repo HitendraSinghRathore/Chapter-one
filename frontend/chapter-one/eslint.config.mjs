@@ -11,6 +11,10 @@ export default [
     files: ['src/**/*.ts'], 
     languageOptions: {
       parser: typescriptEslintParser, 
+      globals: {
+        browser: true,
+        node: true,
+      }
     },
     plugins: {
       '@typescript-eslint': typescriptEslint, 
