@@ -7,7 +7,7 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint src/app/**/*",
+    "lint": "eslint src/**/*",
     "lint:fix": "eslint src/app/**/* --fix",
     "format": "prettier --write \"**/*.{ts,html,css,scss,js,json}\""
   },
