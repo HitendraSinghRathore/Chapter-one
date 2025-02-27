@@ -1,0 +1,48 @@
+<main class="signup-container">
+    <section class="signup-container--content">
+        <header class="signup-container--content--header">
+            <a role="button" class="signup-container--content--header--logo" href="/">
+                <img src="logo.png" alt="Logo" height="96" />
+            </a>
+        </header>
+        <section class="content-form">
+            <h1 class="content-form--header">Create a new account</h1>
+            <p class="content-form--desc">Enter your details below to create your account</p>
+            <form novalidate class="content-form--form">
+                <div class="content-form--form--wrapper">
+                <mat-form-field appearance="outline" class="content-form--form--field">
+                    <mat-label>First name</mat-label>
+                    <input matInput type="text" placeholder="Enter first name" name="firstName" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="content-form--form--field">
+                    <mat-label>Last name</mat-label>
+                    <input matInput type="text" placeholder="Enter last name" name="lastName" required>
+                </mat-form-field>
+            </div>
+            <div class="content-form--form--wrapper">
+                <mat-form-field appearance="outline" class="content-form--form--field">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" placeholder="Enter email" name="email" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="content-form--form--field">
+                    <mat-label>Mobile</mat-label>
+                    <input matInput type="text" placeholder="Enter mobile" name="mobile" required>
+                    </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="content-form--form--field extra-margin">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Enter password" name="password" required>
+                <mat-hint class="form-hint">Password must be at least 6 characters, contain at least one uppercase letter, one lowercase letter and one special symbol</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="content-form--form--field">
+                <mat-label>Confirm password</mat-label>
+                <input matInput type="password" placeholder="Confirm password" name="password" required>
+            </mat-form-field>
+            </form>
+            <button mat-raised-button [color]="'primary'"  class="content-form--form--button">Sign up</button>
+        </section>
+    </section>
+    <section class="signup-container--image">
+        <img src="book-banner.jpg" alt="Signup image containing book store">
+    </section>
+</main>

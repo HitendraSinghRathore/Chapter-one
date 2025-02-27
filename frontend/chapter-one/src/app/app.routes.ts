@@ -1,4 +1,9 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 
-export const routes: Routes = [{ path: '', component: HomeComponent }];
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+    {
+        path: 'signup',
+        loadComponent: async () => (await import('./auth/signup/signup.component')).SignupComponent,
+    }
+];

@@ -14,6 +14,7 @@ export default [
       globals: {
         browser: true,
         node: true,
+        es2022: true
       }
     },
     plugins: {
