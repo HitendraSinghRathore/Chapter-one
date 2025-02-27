@@ -91,6 +91,17 @@
         color: var(--grey-600);
       }
     }
+    &--footer {
+        text-align: center;
+        margin-top:1.5rem;
+        font-size: 1.25rem;
+        color: var(--grey-600);
+        a {
+            color: var(--grey-900);
+            cursor: pointer;
+
+        }
+    }
 }
 .extra-margin {
     margin-bottom: 2.25rem;

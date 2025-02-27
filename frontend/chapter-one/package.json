@@ -23,6 +23,8 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
+    "@ng-icons/core": "^30.3.0",
+    "@ng-icons/heroicons": "^30.3.0",
     "@ngrx/effects": "^19.0.1",
     "@ngrx/entity": "^19.0.1",
     "@ngrx/store": "^19.0.1",

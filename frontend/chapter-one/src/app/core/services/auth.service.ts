@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   signup(firstName: string, lastName: string, email: string, password: string, mobile: string): Observable<{message: string}> {
-    return this.http.post<{message: string}>(`${this.API_URL}/signup`, { firstName, lastName, email, password, mobile });
+    return this.http.post<{message: string}>(`${this.API_URL}/auth/signup`, { firstName, lastName, email, password, mobile });
   }
 
   logout(): void {
