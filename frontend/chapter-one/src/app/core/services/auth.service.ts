@@ -27,16 +27,17 @@ export class AuthService {
     return this.http.put<UserProfile>(`${this.API_URL}/profile`, profile);
   }
 
-  login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/login`, { email, password });
+  login(loginValue: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.API_URL}/auth/login`, { loginValue, password });
   }
 
   signup(firstName: string, lastName: string, email: string, password: string, mobile: string): Observable<{message: string}> {
     return this.http.post<{message: string}>(`${this.API_URL}/auth/signup`, { firstName, lastName, email, password, mobile });
   }
 
-  logout(): void {
-    localStorage.removeItem('authToken');
+  logout(): Observable<{message: string}> {
+    return this.http.post<{message: string}>(`${this.API_URL}/auth/logout`, {});
+
   }
 
   setToken(token: string): void {

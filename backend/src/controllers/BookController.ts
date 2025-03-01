@@ -168,12 +168,12 @@ export default class BookController {
         const genreArray = (genreIds as string).split(',').map(id => parseInt(id, 10));
         includeClause[0].where = { id: { [Op.in]: genreArray } };
       }
-
+      const currentPage = pageNum - 1;
       const { count, rows: books } = await Book.findAndCountAll({
         where: whereClause,
         include: includeClause,
         limit: limitNum,
-        offset: pageNum * limitNum,
+        offset: currentPage * limitNum,
       });
       const booksData = books.map((book) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

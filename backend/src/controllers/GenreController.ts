@@ -37,9 +37,10 @@ export default class GenreController {
                     data: genres,
                 });
             }
+            const currentPage = parseInt(page, 10) - 1;
             const {count, rows: genres} = await Genre.findAndCountAll({
                 limit: parseInt(limit, 10),
-                offset: parseInt(page, 10) * parseInt(limit, 10),
+                offset: currentPage* parseInt(limit, 10),
                 order: [['updatedAt', 'DESC']]
             });
             return res.status(200).json({
@@ -96,12 +97,12 @@ export default class GenreController {
             if (!sourceGenre) {
                 return res.status(404).json({ message: 'Genre not found' });
             }
-            const associatedBooksCount = await sourceGenre.getBooksCount();
-            if (associatedBooksCount > 0) {
-              return res.status(400).json({
-                message: 'Cannot delete genre: it is associated with one or more books.'
-              });
-            }
+            // const associatedBooksCount = await sourceGenre.getBooksCount();
+            // if (associatedBooksCount > 0) {
+            //   return res.status(400).json({
+            //     message: 'Cannot delete genre: it is associated with one or more books.'
+            //   });
+            // }
             const genre = await Genre.destroy({ where: { id } });
             return res.status(200).json(genre);
         } catch (error) {

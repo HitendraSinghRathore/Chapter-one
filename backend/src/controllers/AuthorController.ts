@@ -43,9 +43,10 @@ export default class AuthorController {
                 data: authorsData,
               });
             }
+            const currentPage = parseInt(page, 10) - 1;
             const { count, rows: authors} = await Author.findAndCountAll({
               limit: parseInt(limit, 10),
-              offset: parseInt(page, 10) * parseInt(limit, 10),
+              offset: currentPage * parseInt(limit, 10),
               order: [['updatedAt', 'DESC']]
             });
             const authorsData = authors.map((author) => {

@@ -1,0 +1,38 @@
+<main class="main-container">
+    <header>
+            <h1 >
+                {{isEdit ?'Edit genre':  'Create genre'}}</h1>
+    </header>
+    <section class="main-content">
+        <form [formGroup]="genreForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Enter genre name" required >
+                <mat-hint align="end">{{genreForm.get('name')?.value.length}} / 255</mat-hint>
+                <mat-error *ngIf="genreForm.get('name')?.invalid &&  (genreForm.get('name')?.touched || genreForm.get('name')?.dirty)">
+                    <ng-container *ngIf="genreForm.get('name')?.errors?.['required']">
+                        Name is required
+                    </ng-container>
+                    <ng-container *ngIf="genreForm.get('name')?.errors?.['minlength']">
+                        Name must be at least 3 characters
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="Enter genre description" class="description-input"></textarea>
+                <mat-error *ngIf="genreForm.get('description')?.invalid &&  (genreForm.get('description')?.touched || genreForm.get('description')?.dirty)">
+                    <ng-container *ngIf="genreForm.get('description')?.errors?.['required']">
+                        Description is required
+                    </ng-container>
+                    <ng-container *ngIf="genreForm.get('description')?.errors?.['minlength']">
+                        Description must be at least 10 characters
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!genreForm.valid" style="max-width: fit-content;">
+                Save
+            </button>
+        </form>
+    </section>
+</main>

@@ -1,0 +1,22 @@
+h1 {
+    font-size: 3rem;
+    color: var(--grey-900);
+    margin: 0;
+    line-height: 160%;
+}
+.main-container {
+    padding: 1.75rem;
+   
+}
+.main-content {
+    max-width: 300px;
+    margin-top: 3rem;
+   form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+   }
+}
+.description-input {
+    min-height: 140px;
+}

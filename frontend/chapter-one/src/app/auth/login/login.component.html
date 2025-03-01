@@ -1,0 +1,86 @@
+<main class="signup-container" >
+    <section class="signup-container--content">
+      <header class="signup-container--content--header">
+        <a role="button" class="signup-container--content--header--logo" href="/">
+          <img src="logo.png" alt="Logo" height="96" />
+        </a>
+      </header>
+  
+      <section class="content-form">
+        <h1 class="content-form--header">Login to your account</h1>
+        <p class="content-form--desc">
+          Enter your details below to login to your account
+        </p>
+  
+        <form novalidate class="content-form--form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+         <mat-form-field appearance="outline" class="content-form--form--field">
+            <mat-label>Email or Mobile</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your email or mobile"
+              formControlName="loginValue"
+            />
+            <mat-error *ngIf="loginValue?.invalid && (loginValue?.touched || loginValue?.dirty)">
+              <ng-container *ngIf="loginValue?.errors?.['required']">
+                Email or mobile is required
+              </ng-container>
+              <ng-container *ngIf="loginValue?.errors?.['email']">
+                Please enter a valid email or mobile
+              </ng-container>
+            </mat-error>
+         </mat-form-field>
+          <mat-form-field appearance="outline" class="content-form--form--field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="passwordVisible ? 'text' : 'password'"
+              placeholder="Enter password"
+              formControlName="password"
+            />
+            <mat-icon matSuffix (click)="togglePassword()" aria-hidden="false">
+              <ng-icon
+                [name]="passwordVisible ? 'hero-eye-slash' : 'hero-eye'"
+                size="24"
+                color="primary"
+              ></ng-icon>
+            </mat-icon>
+            <mat-error *ngIf="password?.invalid && (password?.touched || password?.dirty)">
+              <ng-container *ngIf="password?.errors?.['required']">
+                Password is required
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+  
+         
+          <button
+            mat-raised-button
+            color="primary"
+            class="content-form--form--button"
+            type="submit"
+            [disabled]="loginForm.invalid || formLoading"
+          >
+          <ng-container *ngIf="!formLoading; else loadingTemplate">
+            Login 
+          </ng-container>
+          </button>
+          <ng-template #loadingTemplate>
+            <mat-progress-spinner
+             class="spinner"
+            diameter="20"
+            mode="indeterminate"
+          ></mat-progress-spinner>
+          </ng-template>
+        </form>
+  
+        <p class="content-form--footer">
+         Don't have an account yet? <a href="/signup" class="content-form--footer--link" tabindex="0">Signup</a>
+        </p>
+      </section>
+    </section>
+  
+    <section class="signup-container--image">
+      <img src="book-banner.jpg" alt="Signup image containing book store" />
+    </section>
+  </main>
+  

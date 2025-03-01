@@ -131,10 +131,11 @@ export default class CollectionController {
       const count = await collection.countBooks({
         where: whereClause,
       });
+      const currentPage = pageNum - 1;
       const books = await collection.getBooks({
         where: whereClause,
         limit: limitNum,
-        offset: pageNum * limitNum,
+        offset: currentPage * limitNum,
         include: [
           { association: 'genres', through: { attributes: [] } },
           { association: 'author' },

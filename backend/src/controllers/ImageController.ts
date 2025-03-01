@@ -22,7 +22,8 @@ export default class ImageController {
         res.status(400).json({ message: 'Not an image file' });
         return;
       }
-
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
       res.set('Content-Type', contentType);
       const downloadStream = bucket.openDownloadStream(fileId);
       downloadStream.on('error', (err) => {

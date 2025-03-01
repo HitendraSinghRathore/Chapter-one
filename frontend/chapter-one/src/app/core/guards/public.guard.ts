@@ -18,11 +18,11 @@ export class PublicGuard implements CanActivate {
       filter((profile: UserProfile | null) => profile !== null),
       take(1),
       map((profile: UserProfile) =>
-        profile.role === 'admin'
+        profile.roles.includes('admin')
           ? this.router.createUrlTree(['/admin'])
           : true
       ),
-      catchError(() => of(true)) // Allow navigation if profile fails to load
+      catchError(() => of(true)) 
     );
   }
 }

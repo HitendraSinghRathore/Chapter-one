@@ -11,14 +11,12 @@ const router = Router();
 router.post('/', authMiddleware(['admin']), uploadImageMiddleware, [
     check('name').notEmpty().withMessage('Author name is required').isLength({ min: 3, max: 255 }).withMessage('Author name must be between 3 and 255 characters'),
     check('about').notEmpty().withMessage('Author about is required').isLength({ min: 10 }).withMessage('Author about must be more than 10 characters'),
-    check('dob').isDate().withMessage('Invalid date of birth provided'),
 ], asyncHandler(AuthorController.createAuthor));
 
 router.put('/:id', authMiddleware(['admin']),uploadImageMiddleware, [
     param('id').isInt().withMessage('Invalid author id'),
     check('name').notEmpty().withMessage('Author name is required').isLength({ min: 3, max: 255 }).withMessage('Author name must be between 3 and 255 characters'),
     check('about').notEmpty().withMessage('Author about is required').isLength({ min: 10 }).withMessage('Author about must be more than 10 characters'),
-    check('dob').isDate().withMessage('Invalid date of birth provided'),
 ], asyncHandler(AuthorController.updateAuthor));
 
 router.get('/:id', [check('id').isInt().withMessage('Invalid author id')], asyncHandler(AuthorController.getAuthor));

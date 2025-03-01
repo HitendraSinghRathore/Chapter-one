@@ -10,5 +10,5 @@ export const selectUserProfile = createSelector(
 
 export const selectIsAdmin = createSelector(
   selectUserProfile,
-  (profile) => profile?.role === 'admin'
+  (profile) => profile?.roles.includes('admin')
 );

@@ -1,0 +1,59 @@
+<main class="author-form-container">
+    <header>
+      <h1>{{ isEdit ? 'Edit Author' : 'Create Author' }}</h1>
+    </header>
+    <section class="form-content">
+      <form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <div class="image-column">
+            <app-image-uploader 
+              [existingImageUrl]="'http://localhost:8080' + existingImageUrl" 
+              (fileChange)="onFileChange($event)">
+            </app-image-uploader>
+          </div>
+          <div class="fields-column">
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="Enter author name" required>
+              <mat-hint align="end">{{ authorForm.get('name')?.value?.length || 0 }} / 255</mat-hint>
+              <mat-error *ngIf="authorForm.get('name')?.invalid && (authorForm.get('name')?.touched || authorForm.get('name')?.dirty)">
+                <ng-container *ngIf="authorForm.get('name')?.errors?.['required']">
+                  Name is required
+                </ng-container>
+                <ng-container *ngIf="authorForm.get('name')?.errors?.['minlength']">
+                  Name must be at least 3 characters
+                </ng-container>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Date of Birth</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob" placeholder="Select date of birth" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="authorForm.get('dob')?.invalid && (authorForm.get('dob')?.touched || authorForm.get('dob')?.dirty)">
+                Date of Birth is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>About</mat-label>
+              <textarea matInput formControlName="about" placeholder="Enter details about the author" required></textarea>
+              <mat-error *ngIf="authorForm.get('about')?.invalid && (authorForm.get('about')?.touched || authorForm.get('about')?.dirty)">
+                <ng-container *ngIf="authorForm.get('about')?.errors?.['required']">
+                  About is required
+                </ng-container>
+                <ng-container *ngIf="authorForm.get('about')?.errors?.['minlength']">
+                  About must be at least 10 characters
+                </ng-container>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!authorForm.valid">
+            Save
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+  

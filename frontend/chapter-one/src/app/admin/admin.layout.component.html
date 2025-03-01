@@ -1,0 +1,79 @@
+<main>
+    <header class="admin-header">
+        <a href="/admin">
+            <img src="logo.png" height="48" alt="Logo" />
+        </a>
+        <div class="user-data"  *ngIf="!isMobile else mobileNav">
+            <div class="user">
+                <div class="user--logo">A</div>
+                <div class="user--content">
+                    <div class="user--content--name">Admin</div>
+                    <a class="user--content--action" (click)="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+        <ng-template #mobileNav>
+           <button mat-icon-button class="mobile-nav--toggle" (click)="toggleDrawer()">
+                <ng-icon name="hero-bars4" size="24" color="primary"></ng-icon>
+            </button>
+        </ng-template>
+    </header>
+    <section class="main">
+       <mat-drawer-container class="admin-layout" [hasBackdrop]="isMobile">
+        <mat-drawer [mode]="isMobile ? 'over' : 'side'" [opened]="drawerOpened">
+            <div class="sidedrawer">
+            <section class="sidebar-content">
+            <p class="sidebar-header">Menu</p>
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu--item" >
+                   
+                    <a class="sidebar-menu--link" routerLink="/admin/order" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <ng-icon name="hero-archive-box"></ng-icon>
+                        Orders</a>
+                </li>
+                <li class="sidebar-menu--item" >
+                 
+                    <a class="sidebar-menu--link" routerLink="/admin/book" routerLinkActive="active">
+                        <ng-icon name="hero-book-open"></ng-icon>
+                        Books</a>
+                </li>
+                <li class="sidebar-menu--item" >
+                 
+                    <a class="sidebar-menu--link" routerLink="/admin/collection" routerLinkActive="active">
+                        <ng-icon name="hero-rectangle-stack"></ng-icon>
+                        Collections</a>
+                </li>
+                <li class="sidebar-menu--item" >
+                   
+                    <a class="sidebar-menu--link" routerLink="/admin/author" routerLinkActive="active">
+                        <ng-icon name="hero-user"></ng-icon>
+                        Authors</a>
+                </li>
+                <li class="sidebar-menu--item" >
+                   
+                    <a class="sidebar-menu--link" routerLink="/admin/genre" routerLinkActive="active">
+                        <ng-icon name="hero-hashtag"></ng-icon>
+                        Genres</a>
+                </li>
+            </ul>
+        </section>
+            <div class="sidebar-footer">
+                <div class="author-data" *ngIf="isMobile">
+                    <div class="author-data--logo">A</div>
+                    <div class="autho-data">
+                        <div class="author-data--name">Admin</div>
+                        <a class="author-data--action" (click)="logout()">Logout</a>
+                </div>
+                </div>
+                <p class="sidebar-footer--copyright">
+                    &copy; {{year}} Chapter One
+            </div>
+        </div>
+        </mat-drawer>
+        <mat-drawer-content class="main-section" >
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+       </mat-drawer-container>
+        
+    </section>
+</main>

@@ -14,6 +14,15 @@ export const initialAuthState: AuthState = {
 
 export const authReducer = createReducer(
   initialAuthState,
+  on(AuthActions.loginSuccess, (state, { profile }) => ({
+    ...state,
+    profile,
+    error: null,
+  })),
+  on(AuthActions.loginFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
   on(AuthActions.loadProfileSuccess, (state, { profile }) => ({
     ...state,
     profile,

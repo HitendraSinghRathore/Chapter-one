@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import {  CanActivate, CanActivateChild, Router, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of, timer } from 'rxjs';
 import { map, filter, take, switchMap, catchError } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { UserProfile } from '../models/user-profile.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class AdminGuard implements CanActivate, CanActivateChild {
   constructor(private store: Store, private router: Router) {}
 
   canActivate(): Observable<boolean | UrlTree> {
@@ -18,11 +18,14 @@ export class AdminGuard implements CanActivate {
       filter((profile: UserProfile | null) => profile !== null),
       take(1),
       map((profile: UserProfile) =>
-        profile.role === 'admin'
+        profile.roles?.includes('admin') 
           ? true
-          : this.router.createUrlTree(['/'])
+          : this.router.createUrlTree(['/login'])
       ),
       catchError(() => of(this.router.createUrlTree(['/'])))
     );
+  }
+  canActivateChild():Observable<boolean | UrlTree> {
+    return this.canActivate();
   }
 }

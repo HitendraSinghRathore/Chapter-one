@@ -1,0 +1,171 @@
+@use '../../styles/variables';
+
+main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    height: 60px; 
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--grey-300);
+    background-color: #fff; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    .user-data {
+        position: relative;
+        &::before {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 124px;
+            background-color: var(--grey-300);
+            position: absolute;
+            left: 0;
+            top: -30px;
+        }
+        .user {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            .user--logo {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: var(--grey-100);
+                margin-right: 1rem;
+                font-weight: 600;
+                color: var(--grey-900);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 28px;
+            }
+            .user--content {
+                display: flex;
+                flex-direction: column;
+                .user--content--name {
+                    font-size: 1.5rem;
+                    color: var(--grey-900);
+                }
+                .user--content--action {
+                    font-size: 1.25rem;
+                    color: #980000;
+                    cursor: pointer;
+                    font-weight: 600;
+                
+                }
+            }
+        }
+    }
+
+  }
+  section.main {
+    flex: 1 1 auto;
+    overflow: hidden; 
+  }
+  .admin-layout {
+    height: 100%;
+    
+    .mat-drawer-container {
+      height: 100%;
+    }
+    
+    .mat-drawer {
+      width: 250px; 
+      flex-shrink: 0;
+      overflow-y: auto;
+      box-shadow: none;
+
+    }
+    
+   
+    .mat-drawer-content {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+  .sidebar-header {
+    font-size: 1.25rem;
+    padding: 0 1.5rem;
+    color: var(--grey-700);
+    margin: 0;
+    line-height: 160%;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    
+  }
+  .sidebar-menu {
+
+        li {
+            font-size: 1.25rem;
+            &:hover {
+                background-color: var(--grey-100);
+            }
+            a {
+                display: flex;
+                align-items: center;
+                gap:8px;
+                padding: 0.75rem 1.5rem;
+                cursor: pointer;
+                color: var(--grey-900);
+                text-decoration: none;
+                &.active {
+                    background-color: var(--grey-300);
+                }
+            }
+            
+            
+        }
+    
+  }
+  .sidedrawer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .sidebar-content {
+        flex: 1;
+    }
+    .sidebar-footer {
+        border-top: 1px solid var(--grey-300);
+        padding: 1.5rem;
+        .author-data {
+            display: flex;
+            margin-bottom: 16px;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--grey-300);
+            .author-data--logo{
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: var(--grey-100);
+                margin-right: 1rem;
+                font-weight: 600;
+                font-size: 32px;
+                color: var(--grey-900);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .autho-data {
+                display: flex;
+                flex-direction: column;
+                .author-data--name {
+                    font-size: 1.5rem;
+                    color: var(--grey-900);
+                }
+                .author-data--action {
+                    font-size: 1.25rem;
+                    color: #980000;
+                    cursor: pointer;
+                    font-weight: 600;
+                    padding: 0.25rem 0;
+                }
+            }
+        }
+
+    }
+  }

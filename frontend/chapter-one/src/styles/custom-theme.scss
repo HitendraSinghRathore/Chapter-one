@@ -18,6 +18,13 @@ $my-theme: mat.m2-define-light-theme((
   @include mat.snack-bar-overrides((
     button-color: #f94040,
   ));
+  @include mat.table-overrides((
+    header-headline-color: var(--grey-600),
+    header-headline-size: 1.5rem
+  ));
+  @include mat.paginator-overrides((
+    container-background-color: transparent,
+  ));
 }
 @include mat.core-theme($my-theme);
 @include mat.all-component-themes($my-theme);
