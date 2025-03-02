@@ -8,6 +8,11 @@ h1 {
     padding: 1.75rem;
    
 }
+header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 .main-content {
     max-width: 300px;
     margin-top: 3rem;

@@ -78,7 +78,7 @@ export default class AuthController {
       const token = jwt.sign(
         payload,
         config.get<AuthConfig>('auth').jwtSecret,
-        { expiresIn: '1h' }
+        { expiresIn: '6h' }
       );
 
       res.setHeader('Authorization', `Bearer ${token}`);

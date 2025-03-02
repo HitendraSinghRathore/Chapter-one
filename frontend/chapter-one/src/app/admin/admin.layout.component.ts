@@ -5,7 +5,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
-import { heroBars4, heroArchiveBox, heroBookOpen, heroRectangleStack, heroHashtag, heroUser} from "@ng-icons/heroicons/outline";
+import { heroBars4, heroArchiveBox, heroBookOpen, heroHashtag, heroUser} from "@ng-icons/heroicons/outline";
 import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as AuthActions from '../store/auth.actions';
@@ -22,7 +22,7 @@ import * as AuthActions from '../store/auth.actions';
         RouterModule,
         RouterLinkActive
     ],
-    providers: [provideIcons({ heroBars4,heroArchiveBox,heroBookOpen, heroRectangleStack, heroHashtag, heroUser })]
+    providers: [provideIcons({ heroBars4,heroArchiveBox,heroBookOpen, heroHashtag, heroUser })]
 })
 export class AdminLayoutComponent implements OnInit, OnDestroy {
     sidebarBackdrop = false;

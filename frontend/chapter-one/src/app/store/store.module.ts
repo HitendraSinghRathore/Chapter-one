@@ -6,8 +6,12 @@ import { AdminGenreEffects } from './admin-genre/admin-genre.effects';
 import { adminGenreReducer } from './admin-genre/admin-genre.reducer';
 import { adminAuthorReducer } from './admin-author/admin-author.reducer';
 import { AdminAuthorEffects } from './admin-author/admin-author.effects';
+import { AdminBookEffects } from './admin-book/admin-book.effects';
+import { adminBookReducer } from './admin-book/admin-book.reducer';
+import { AdminOrderEffects } from './admin-order/admin-order.effects';
+import { adminOrderReducer } from './admin-order/admin-order.reducer';
 
 export const storeProviders = [
-  provideStore({ auth: authReducer, adminGenre: adminGenreReducer, adminAuthor: adminAuthorReducer }),
-  provideEffects([AuthEffects, AdminGenreEffects, AdminAuthorEffects]),
+  provideStore({ auth: authReducer, adminGenre: adminGenreReducer, adminAuthor: adminAuthorReducer, adminBook: adminBookReducer, adminOrder: adminOrderReducer }),
+  provideEffects([AuthEffects, AdminGenreEffects, AdminAuthorEffects, AdminBookEffects, AdminOrderEffects]),
 ];

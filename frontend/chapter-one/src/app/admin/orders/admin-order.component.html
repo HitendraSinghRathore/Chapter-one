@@ -1,0 +1,52 @@
+<main class="main-container">
+    <header>
+      <h1>Orders</h1>
+    </header>
+    <section>
+      <div class="orders-container">
+        <div *ngIf="loading$ | async">
+          <app-shimmer width="100%" height="240px" borderRadius="4px"></app-shimmer>
+        </div>
+        <div *ngIf="(loading$ | async) === false">
+          <ng-container *ngIf="orders$ | async as orders; else noOrders">
+            <ng-container *ngIf="orders.length > 0; else noOrders">
+              <mat-table [dataSource]="orders" class="mat-elevation-z8">
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef> Order ID </mat-header-cell>
+                  <mat-cell *matCellDef="let order"> {{ order.id }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="user">
+                  <mat-header-cell *matHeaderCellDef> Customer Name </mat-header-cell>
+                  <mat-cell *matCellDef="let order"> {{ order.user.name }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="total">
+                    <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+                    <mat-cell *matCellDef="let order"> ${{ order.total }} </mat-cell>
+                  </ng-container>
+                <ng-container matColumnDef="address">
+                  <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+                  <mat-cell *matCellDef="let order"> {{ order.address.address }} </mat-cell>
+                </ng-container>
+               
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                  <mat-cell *matCellDef="let order"> {{ order.status }} </mat-cell>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </mat-table>
+            </ng-container>
+          </ng-container>
+          <ng-template #noOrders>
+            <div class="no-data">
+              <img src="Emptystate-No-Search-Results-Found--Streamline-Milano.png" alt="No orders found" />
+              <div class="text">
+                No orders found
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+  </main>
+  

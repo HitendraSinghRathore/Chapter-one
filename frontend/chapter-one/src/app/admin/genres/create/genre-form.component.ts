@@ -9,14 +9,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Genre } from "../../../core/models/genre.model";
+import { heroArrowLeft } from "@ng-icons/heroicons/outline";
+import { NgIconComponent, provideIcons } from "@ng-icons/core";
 
 @Component({
     selector: "app-genre-form",
     templateUrl: "./genre-form.component.html",
     styleUrls: ["./genre-form.component.scss"],
-    providers: [],
+    providers: [provideIcons({ heroArrowLeft })],
     standalone: true,
-    imports: [ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+    imports: [ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, NgIconComponent],
 })
 export class GenreFormComponent implements OnInit {
     router = inject(Router);
@@ -52,7 +54,9 @@ export class GenreFormComponent implements OnInit {
             }
         });
     }
-
+    onBack(): void {
+        this.router.navigate(['/admin/genre']);
+    }
     onSubmit(): void {
         if (this.genreForm.valid) {
             const genreData = this.genreForm.value;

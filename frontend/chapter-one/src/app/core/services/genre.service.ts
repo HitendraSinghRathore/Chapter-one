@@ -21,7 +21,9 @@ export class GenreService {
   private readonly API_URL = environment.apiUrl ;
 
   constructor(private http: HttpClient) {}
-
+  fetchAllGenres() {
+    return this.http.get<GenreResponse>(`${this.API_URL}/genres`);
+  }
   getAllGenres(page = 1, limit = 10): Observable<GenreResponse> {
     return this.http.get<GenreResponse>(`${this.API_URL}/genres`, {
       params: { page: page.toString(), limit: limit.toString() }

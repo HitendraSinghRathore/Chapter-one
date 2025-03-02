@@ -13,6 +13,8 @@ import { Author } from '../../../core/models/author.model';
 import * as AuthorActions from '../../../store/admin-author/admin-author.actions';
 import { selectAdminSelectedAuthor } from '../../../store/admin-author/admin-author.selectors';
 import { ImageUploaderComponent } from '../../../common/app-image-uploader.component';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { heroArrowLeft } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'admin-author-form',
@@ -25,10 +27,12 @@ import { ImageUploaderComponent } from '../../../common/app-image-uploader.compo
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    NgIconComponent
   ],
   templateUrl: './author-form.component.html',
-  styleUrls: ['./author-form.component.scss']
+  styleUrls: ['./author-form.component.scss'],
+  providers: [provideIcons({ heroArrowLeft })]
 })
 export class AuthorFormComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
@@ -52,6 +56,9 @@ export class AuthorFormComponent implements OnInit, OnDestroy {
 
   onFileChange(file: File): void {
     this.authorForm.patchValue({ imageFile: file });
+  }
+  onBack(): void {
+    this.router.navigate(['/admin/author']);
   }
 
   ngOnInit(): void {

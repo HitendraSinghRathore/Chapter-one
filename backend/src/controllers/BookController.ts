@@ -121,10 +121,9 @@ export default class BookController {
           bookData.author.image = `/api/images/${bookData.author.image}`;
       }
       bookData.outOfStock = bookData.sellableQuantity === 0;
-      delete bookData.sellableQuantity;
       
       return res.status(200).json({
-        data: book
+        data: bookData
       });
     } catch (error) {
       console.error('Error fetching book:', error);
@@ -172,7 +171,9 @@ export default class BookController {
       const { count, rows: books } = await Book.findAndCountAll({
         where: whereClause,
         include: includeClause,
+        distinct: true,
         limit: limitNum,
+        order: [['updatedAt', 'DESC']],
         offset: currentPage * limitNum,
       });
       const booksData = books.map((book) => {

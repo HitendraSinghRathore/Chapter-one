@@ -1,5 +1,9 @@
 <main class="main-container">
     <header>
+        <button mat-icon-button class="back-button" (click)="onBack()"> 
+          <ng-icon name="hero-arrow-left" size="24" color="primary">    
+          </ng-icon>
+          </button>
             <h1 >
                 {{isEdit ?'Edit genre':  'Create genre'}}</h1>
     </header>

@@ -1,0 +1,156 @@
+<main class="book-form-container">
+    <header>
+        <button mat-icon-button class="back-button" (click)="onBack()">
+          <ng-icon name="hero-arrow-left" size="24" color="primary">
+          </ng-icon>
+          </button>
+      <h1 >
+        {{isEdit ?'Edit book':  'Create book'}}</h1>
+    </header>
+    <section class="main-content">
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+            <div class="form-grid">
+                <div class="image-column">
+                    <app-image-uploader 
+                        [existingImageUrl]="'http://localhost:8080' + existingBookImageUrl" 
+                        (fileChange)="onFileChange($event)">
+                    </app-image-uploader>
+                </div>
+                <div class="fields-column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" placeholder="Enter book name" required>
+                        <mat-hint align="end">{{bookForm.get('name')?.value?.length || 0 }} / 255</mat-hint>
+                        <mat-error *ngIf="bookForm.get('name')?.invalid && (bookForm.get('name')?.touched || bookForm.get('name')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('name')?.errors?.['required']">
+                                Name is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('name')?.errors?.['minlength']">
+                                Name must be at least 3 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                 
+                    <mat-form-field appearance="outline">
+                        <mat-label>ISBN</mat-label>
+                        <input matInput formControlName="ISBN" placeholder="Enter book ISBN" required>
+                        <mat-error *ngIf="bookForm.get('ISBN')?.invalid && (bookForm.get('ISBN')?.touched || bookForm.get('ISBN')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('ISBN')?.errors?.['required']">
+                                ISBN is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('ISBN')?.errors?.['minlength']">
+                                ISBN must be at least 10 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Page count</mat-label>
+                        <input matInput formControlName="pageCount" placeholder="Enter book page count" required type="number">
+                        <mat-error *ngIf="bookForm.get('pageCount')?.invalid && (bookForm.get('pageCount')?.touched || bookForm.get('pageCount')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('pageCount')?.errors?.['required']">
+                                Page count is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('pageCount')?.errors?.['minlength']">
+                                Page count must be at least 1 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Sellable quantity</mat-label>
+                        <input matInput formControlName="sellableQuantity" placeholder="Enter book sellable quantity" required>
+                        <mat-error *ngIf="bookForm.get('sellableQuantity')?.invalid && (bookForm.get('sellableQuantity')?.touched || bookForm.get('sellableQuantity')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('sellableQuantity')?.errors?.['required']">
+                                Sellable quantity is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('sellableQuantity')?.errors?.['minlength']">
+                                Sellable quantity must be at least 1 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Price</mat-label>
+                        <input matInput formControlName="price" placeholder="Enter book price" required type="number">
+                        <mat-error *ngIf="bookForm.get('price')?.invalid && (bookForm.get('price')?.touched || bookForm.get('price')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('price')?.errors?.['required']">
+                                Price is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('price')?.errors?.['minlength']">
+                                Price must be at least 1 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Country of origin</mat-label>
+                        <input matInput formControlName="countryOfOrigin" placeholder="Enter country of origin" required>
+                        <mat-error *ngIf="bookForm.get('countryOfOrigin')?.invalid && (bookForm.get('countryOfOrigin')?.touched || bookForm.get('countryOfOrigin')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('countryOfOrigin')?.errors?.['required']">
+                                Country of origin is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('countryOfOrigin')?.errors?.['minlength']">
+                                Country of origin must be at least 10 characters
+                            </ng-container> 
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Published date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="publishedDate" placeholder="Select date of publication" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="bookForm.get('publishedDate')?.invalid && (bookForm.get('publishedDate')?.touched || bookForm.get('publishedDate')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('publishedDate')?.errors?.['required']">
+                                Published date is required
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Edition</mat-label>
+                        <input matInput formControlName="edition" placeholder="Enter book edition" required>
+                        <mat-error *ngIf="bookForm.get('edition')?.invalid && (bookForm.get('edition')?.touched || bookForm.get('edition')?.dirty)">
+                            <ng-container *ngIf="bookForm.get('edition')?.errors?.['required']">
+                                Edition is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('edition')?.errors?.['minlength']">
+                                Edition must be at least 10 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Author</mat-label>
+                        <mat-select formControlName="authorId" placeholder="Select author">
+                            <mat-option *ngFor="let author of authors" [value]="author.id">{{author.name}}</mat-option>
+                           
+                        </mat-select>
+                        <mat-error *ngIf="bookForm.get('authorId')?.invalid && (bookForm.get('authorId')?.touched || bookForm.get('authorId')?.dirty)">
+                            Author is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Genres</mat-label>
+                        <mat-select formControlName="genres" placeholder="Select genre" multiple>
+                            <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
+                           
+                        </mat-select>
+                        <mat-error *ngIf="bookForm.get('genres')?.invalid ">
+                            Genre is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-column">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" placeholder="Enter book description" class="description-input"></textarea>
+                        <mat-error *ngIf="bookForm.get('description')?.invalid ">
+                            <ng-container *ngIf="bookForm.get('description')?.errors?.['required']">
+                                Description is required
+                            </ng-container>
+                            <ng-container *ngIf="bookForm.get('description')?.errors?.['minlength']">
+                                Description must be at least 10 characters
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                    
+                </div>  
+            </div>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!bookForm.valid" style="max-width: fit-content;">
+                Save
+            </button>
+        </form>
+    </section>

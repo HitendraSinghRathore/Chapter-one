@@ -6,6 +6,8 @@ import { Cart } from '../models/Cart';
 import { CartItem } from '../models/CartItem';
 import { Book } from '../models/Book';
 import { sequelize } from '../database/postgres';
+import { Address } from '../models/Address';
+import { User } from '../models/User';
 
 
 export default class OrderController {
@@ -98,7 +100,7 @@ export default class OrderController {
     try {
       const orders = await Order.findAll({
         where: { user: userId },
-        include: [{ model: OrderItem, as: 'items', include: [{ model: Book, as: 'book' }] }],
+        include: [{ model: OrderItem, as: 'items', include: [{ model: Book, as: 'book' }] }, { model: Address, as: 'address' }],
         order: [['created_at', 'DESC']],
       });
       const ordersData = orders.map(order => {
@@ -133,6 +135,8 @@ export default class OrderController {
       const orders = await Order.findAll({
         include: [
           { model: OrderItem, as: 'items', include: [{ model: Book, as: 'book' }] },
+          { model: Address, as: 'address' },
+          { model: User, as: 'user' },
         ],
         order: [['created_at', 'DESC']],
       });
@@ -141,7 +145,7 @@ export default class OrderController {
         const orderJson = order.toJSON() as any;
         return orderJson;
       });
-      return res.status(200).json(ordersData);
+      return res.status(200).json({data: ordersData});
     } catch (error) {
       console.error('Error fetching all orders:', error);
       throw error;

@@ -1,0 +1,46 @@
+@import '../../../../styles/_variables';
+.book-form-container {
+    padding: 1.75rem;
+}
+header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2rem;
+    @include respond-to(md) {
+        margin-bottom: 3rem;
+    }
+}
+h1 {
+    font-size: 3rem;
+    color: var(--grey-900);
+    margin: 0;
+    line-height: 160%;
+    
+   
+}
+.image-column {
+    min-width: 280px;
+}
+.form-grid {
+    display: flex;
+    width: 100%;
+    gap:2rem;
+    flex-direction: column;
+    @include respond-to(lg) {
+        flex-direction: row;
+       
+
+    }
+}
+.fields-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-column-gap: 1rem;
+    grid-row-gap: 1.75rem;
+}
+.full-column {
+    grid-column-start: -3;
+    grid-column-end: -1;
+}

@@ -37,11 +37,19 @@ export const adminRoutes: Routes = [
       {
           path: 'genre/:id',
           loadComponent: async () => (await import('./genres/create/genre-form.component')).GenreFormComponent,
-      }
-    //   {
-    //     path: 'book',
-    //     loadComponent: async () => (await import('./books/admin-book.component')).AdminBookComponent,
-    //   },
+      },
+      {
+        path: 'book',
+        loadComponent: async () => (await import('./book/book.component')).BookComponent,
+      },
+      {
+        path: 'book/create',
+        loadComponent: async () => (await import('./book/create/book-form.component')).BookFormComponent,
+      },
+      {
+        path: 'book/:id',
+        loadComponent: async () => (await import('./book/create/book-form.component')).BookFormComponent,
+      },
     ],
   },
 ];
