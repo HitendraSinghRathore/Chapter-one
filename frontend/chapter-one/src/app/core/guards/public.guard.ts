@@ -25,4 +25,7 @@ export class PublicGuard implements CanActivate {
       catchError(() => of(true)) 
     );
   }
+  canActivateChild():Observable<boolean | UrlTree> {
+    return this.canActivate();
+  }
 }

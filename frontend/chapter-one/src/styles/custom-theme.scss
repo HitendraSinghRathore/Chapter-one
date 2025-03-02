@@ -28,3 +28,8 @@ $my-theme: mat.m2-define-light-theme((
 }
 @include mat.core-theme($my-theme);
 @include mat.all-component-themes($my-theme);
+
+
+.dense{
+  @include mat.all-component-densities(-4);
+}

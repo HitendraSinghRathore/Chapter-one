@@ -1,0 +1,143 @@
+@import '../../../styles/variables';
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease;
+  
+    &.scrolled {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  .skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    z-index: 1001;
+    transition: top 0.3s ease;
+    border: none;
+    cursor: pointer;
+  
+    &:focus {
+      top: 0;
+    }
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 24px;
+    height: 64px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  
+  
+
+  }
+  
+  .nav {
+    display: none;
+    
+  
+    a {
+      margin: 0 16px;
+      text-decoration: none;
+      color: inherit;
+      font-size: 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap:4px;
+      
+    }
+    @include respond-to(md) {
+        display: flex;
+        align-items: center;
+    }
+  }
+  
+  .actions {
+    display: flex;
+    align-items: center;
+  
+    .search-field {
+        width: 150px;
+     
+      @include respond-to(md) {
+        width: 200px;
+        margin-right: 16px;
+      }
+    }
+  
+    .user-btn,
+    .cart-btn,
+    .hamburger {
+      margin: 0 4px;
+      position: relative;
+    }
+  
+    .cart-count {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: #000;
+      color: white;
+      border-radius: 50%;
+      font-size: 10px;
+      padding: 5px;
+    }
+  }
+
+  
+  
+  .search{
+    display: flex;
+    align-items: center;
+   
+  }
+  .search-field{
+    background-color: #fafafa;
+  }
+  .hide-on-mobile{
+    display: none;
+    @include respond-to(md) {
+        display: block;
+    }
+  }
+  .button-group {
+    display: flex;
+    gap:4px;
+    padding: 8px;
+    justify-content: center;
+    button {
+        font-size: 1rem;
+    }
+  }
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 8px;
+    padding-bottom: 0;
+    .user-name {
+        font-size: 1.25rem;
+        font-weight: 800;
+        line-height: 160%;
+    }
+    .user-email {
+        font-size: 1rem;
+        line-height: 160%;
+        color: #666;
+    }
+  }

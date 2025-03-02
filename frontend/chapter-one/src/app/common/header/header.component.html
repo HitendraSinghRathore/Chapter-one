@@ -1,0 +1,55 @@
+<header [class.scrolled]="isScrolled">
+    <button class="skip-to-content" (click)="scrollToContent()">Skip to content</button>
+    
+    <div class="header-content">
+      <div class="logo">
+        <a href="/">
+            <img src="logo.png" alt="Logo" height="64" />
+        </a>
+      </div>
+      
+      <nav class="nav">
+        <a routerLink="/shop">Explore
+            <ng-icon name="hero-chevron-down" size="18"></ng-icon>
+        </a>
+      </nav>
+      
+      <div class="actions">
+        <div class="dense search hide-on-mobile">
+        <mat-form-field class="search-field" appearance="outline" floatLabel="auto" subscriptSizing="dynamic">
+          <input matInput placeholder="Search" [(ngModel)]="searchQuery">
+          <button mat-icon-button matPrefix (click)="onSearch()">
+            <ng-icon name="hero-magnifying-glass" size="22"></ng-icon>
+          </button>
+        </mat-form-field>
+    </div>
+        
+    <button mat-icon-button class="cart-btn hide-on-mobile">
+        <ng-icon name="hero-shopping-bag" size="24"></ng-icon>
+        <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+        
+      <button mat-icon-button class="user-btn hide-on-mobile" [matMenuTriggerFor]="userMenu">
+          <ng-icon name="hero-user" size="24"></ng-icon>
+        </button>
+        
+       
+        
+        <button mat-icon-button class="hamburger" *ngIf="isMobile" (click)="toggleSidenav()" >
+          <ng-icon name="hero-bars-4" size="24"></ng-icon>
+        </button>
+      </div>
+    </div>
+  </header>
+  <mat-menu #userMenu="matMenu" class="user-profile-menu">
+    <div class="mat-menu-item user-info">
+      <p class="user-name">{{ user.name }}</p>
+      <p class="user-email">{{ user.email }}</p>
+    </div>
+    <div class="button-group">
+   
+    <button mat-stroked-button (click)="logout()">Profile</button>
+    <button mat-stroked-button (click)="logout()">Logout</button>
+    </div>
+  </mat-menu>
+  
