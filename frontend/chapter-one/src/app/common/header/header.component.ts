@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Component, HostListener, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBars4, heroChevronDown, heroHome, heroMagnifyingGlass, heroShoppingBag, heroUser } from '@ng-icons/heroicons/outline';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { UserProfile } from '../../core/models/user-profile.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,19 +21,27 @@ import {MatMenuModule} from '@angular/material/menu';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-     NgIconComponent,
-     MatMenuModule,
+    NgIconComponent,
+    MatMenuModule,
+    MatSidenavModule
     ] ,
     providers: [provideIcons({heroHome, heroUser, heroShoppingBag, heroMagnifyingGlass, heroBars4, heroChevronDown})]
 })
 export class HeaderComponent {
   @Input() cartCount: number = 0;
+  @Input() user: UserProfile|null = null;
   @Output() sidenavToggle = new EventEmitter<void>();
+  showSidenav: boolean = false; 
+  router = inject(Router);
 
   searchQuery: string = '';
   isScrolled: boolean = false;
   isMobile: boolean = window.innerWidth <= 768; 
-
+  userData = {
+    name: 'John Doe',
+    email: 'john.doe@example.com'
+  };
+  
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     this.isScrolled = window.pageYOffset > 0;
@@ -40,13 +51,11 @@ export class HeaderComponent {
   onResize(): void {
     this.isMobile = window.innerWidth <= 768;
   }
-  user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  };
-
   logout(): void {
     console.log('User logged out');
+  }
+  login():void {
+    this.router.navigate(['/login']);
   }
 
   scrollToContent(): void {
@@ -56,8 +65,10 @@ export class HeaderComponent {
     }
   }
 
+  toggleSidebar(): void {
+    this.sidenavToggle.emit();
+  }
   onSearch(): void {
-    // Implement your search logic here
     console.log('Searching for:', this.searchQuery);
   }
 

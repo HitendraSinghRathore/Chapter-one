@@ -1,0 +1,46 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #drawer class="menu-drawer" mode="over">
+      <div class="menu-content">
+        <nav class="menu-links">
+          <a routerLink="/explore" class="menu-link">
+            <span class="link-icon">
+              <ng-icon name="hero-chevron-down" size="20"></ng-icon>
+            </span>
+            <span class="link-text">Explore</span>
+          </a>
+          <a routerLink="/cart" class="menu-link">
+            <span class="link-icon">
+              <ng-icon name="hero-shopping-bag" size="20"></ng-icon>
+            </span>
+            <span class="link-text">Cart</span>
+            <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+          </a>
+        </nav>
+        <ng-container *ngIf="userProfile$ | async as userProfile">
+        <div class="user-profile">
+          <div class="user-info">
+           
+               
+              
+            <p class="user-name"> {{ userProfile.name }}</p>
+            <p class="user-email" *ngIf="user.email"> {{ userProfile.email }}</p>
+        
+          </div>
+          <div class="user-actions" *ngIf="userProfile.email else userLogin">
+            <button mat-stroked-button (click)="editProfile()">Edit Profile</button>
+            <button mat-stroked-button (click)="logout()">Logout</button>
+          </div>
+          <ng-template #userLogin>
+            <button mat-stroked-button extended (click)="login()" class="login-btn">
+                Login</button>
+          </ng-template>
+        </div>
+        </ng-container>
+      </div>
+      
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-header (sidenavToggle)="drawer.toggle()" [cartCount]="cartCount" [user]="userProfile$ | async"></app-header>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -1,0 +1,79 @@
+@import '../../styles/variables';
+.example-container {
+    height: 100vh;
+  }
+  .menu-drawer {
+    height: 100vh;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+  .menu-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+  .menu-links {
+    padding-block: 16px;
+  }
+  .menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    font-size: 16px;
+    color: inherit;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 8px;
+  }
+  .menu-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  .link-icon {
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+  }
+  .link-text {
+    flex-grow: 1;
+  }
+  .cart-count {
+    background-color: var(--grey-900);
+    color: #fff;
+    border-radius: 12px;
+    padding: 0 6px;
+    font-size: 12px;
+    min-width: 24px;
+    text-align: center;
+    margin-left: 8px;
+  }
+  .user-profile {
+    padding: 16px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
+  .user-info {
+    margin-bottom: 8px;
+  }
+  .user-name {
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .user-email {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .user-actions button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .user-actions button:last-child {
+    margin-bottom: 0;
+  }
+  .login-btn {
+    width: 100%;
+  }

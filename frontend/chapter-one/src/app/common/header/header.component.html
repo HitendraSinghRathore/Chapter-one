@@ -1,3 +1,4 @@
+
 <header [class.scrolled]="isScrolled">
     <button class="skip-to-content" (click)="scrollToContent()">Skip to content</button>
     
@@ -29,13 +30,19 @@
         <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
       </button>
         
-      <button mat-icon-button class="user-btn hide-on-mobile" [matMenuTriggerFor]="userMenu">
+      <button mat-icon-button class="user-btn hide-on-mobile" [matMenuTriggerFor]="userMenu" *ngIf="(user?.email || user?.mobile ) else userLoginBtn">
           <ng-icon name="hero-user" size="24"></ng-icon>
         </button>
+        <ng-template #userLoginBtn>
+          <button mat-icon-button class="user-btn hide-on-mobile"  (click)="login()">
+            <ng-icon name="hero-user" size="24"></ng-icon>
+          </button>
+        </ng-template>
+       
         
        
         
-        <button mat-icon-button class="hamburger" *ngIf="isMobile" (click)="toggleSidenav()" >
+        <button mat-icon-button class="hamburger" *ngIf="isMobile" (click)="toggleSidebar()" >
           <ng-icon name="hero-bars-4" size="24"></ng-icon>
         </button>
       </div>
@@ -43,13 +50,16 @@
   </header>
   <mat-menu #userMenu="matMenu" class="user-profile-menu">
     <div class="mat-menu-item user-info">
-      <p class="user-name">{{ user.name }}</p>
-      <p class="user-email">{{ user.email }}</p>
+      <p class="user-name">{{ user?.name }}</p>
+      <p class="user-email">{{ user?.email }}</p>
     </div>
-    <div class="button-group">
+    <div class="button-group" *ngIf="user?.email else userLogin">
    
     <button mat-stroked-button (click)="logout()">Profile</button>
     <button mat-stroked-button (click)="logout()">Logout</button>
     </div>
+    <ng-template #userLogin>
+      <button mat-stroked-button extended (click)="login()" class="login-btn">
+          Login</button>
+    </ng-template>
   </mat-menu>
-  
