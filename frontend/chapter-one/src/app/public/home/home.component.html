@@ -1,0 +1,55 @@
+<main id="main">
+    <section class="hero-section">
+        <div class="container">
+                <div class="hero-text-container">
+                    <h1 class="hero-title">Expand Your Mind, One Chapter at a Time.</h1>
+                    <p class="hero-subtitle"> Discover a world of knowledge and stories. Find books to learn, grow, and escape.</p>
+                    <button mat-raised-button theme="primary">Explore</button>
+                </div>
+        </div>
+    </section>
+    <section class="feature-container">
+        <div class="feature-section">
+            <div class="feature-text"> 
+            <h2 class="feature-title">Why Choose Us?</h2>
+            <p class="feature-subtitle">Experience the best in online book shopping with our premium features and services.</p>
+            
+        </div>
+        <section class="feature-grid">
+            <div class="feature-card">
+            
+                    <ng-icon name="heroBookOpen" size="28" class="card-icon"></ng-icon>
+                    <h4 class="card-title">Vast Collection</h4>
+                    <p>Access to millions of titles across every genre imaginable</p>
+            
+            </div>
+            <div class="feature-card">
+                <ng-icon name="heroRocketLaunch" size="28" class="card-icon"></ng-icon>
+                <h4 class="card-title">Fast Delivery</h4>
+                    <p>Get your books delivered to your doorstep within days</p>
+            </div>
+            <div class="feature-card">
+                <ng-icon name="heroHeart" size="28" class="card-icon"></ng-icon>
+                <h4 class="card-title">Personalized Picks</h4>
+                    <p>Receive custom recommendations based on your reading preferences</p>
+            </div>
+            <div class="feature-card">
+                <ng-icon name="heroStar" size="28" class="card-icon"></ng-icon>
+                <h4 class="card-title">Quanlity Guranteed</h4>
+                    <p>Enjoy best quality books with our guaranteed delivery service</p>
+            </div>
+        </section>
+        </div>
+    </section>
+    <section class="author-section">
+        <h2 class="section-title">Featured Authors</h2>
+        <div class="author-grid">
+            <div class="author-card" *ngFor="let author of authors$ | async; trackBy:trackByAuthorId" [ngStyle]="{'background-image': 'url(http://localhost:8080' + author.image + ')'}" role="button" tabindex="0" aria-label="Read more about about author">
+                <h3 >
+                    <span>{{author.name}}</span>
+                    <ng-icon name="heroArrowLongRight" size="18"></ng-icon>
+                </h3>
+                </div>
+            </div>
+    </section>
+</main>

@@ -21,7 +21,7 @@ router.put('/:id', authMiddleware(['admin']),uploadImageMiddleware, [
 
 router.get('/:id', [check('id').isInt().withMessage('Invalid author id')], asyncHandler(AuthorController.getAuthor));
 
-router.get('/', authMiddleware(['admin']), [
+router.get('/', [
     query('page').optional().isInt({ min: 0 }).withMessage('Page must be an integer greater than or equal to 0'),
     query('limit').optional().isInt({ min: 1 }).withMessage('Limit must be an integer greater than or equal to 1')
 ], asyncHandler(AuthorController.getAuthors));

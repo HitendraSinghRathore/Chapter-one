@@ -3,7 +3,9 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #fff;
+    background: rgba(255,255,255, 0.8);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--grey-300);
     z-index: 1000;
     transition: box-shadow 0.3s ease;
   

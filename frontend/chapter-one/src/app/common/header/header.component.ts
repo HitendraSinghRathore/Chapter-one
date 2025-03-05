@@ -35,7 +35,7 @@ export class HeaderComponent {
   router = inject(Router);
 
   searchQuery: string = '';
-  isScrolled: boolean = false;
+  isScrolled: number = 0;
   isMobile: boolean = window.innerWidth <= 768; 
   userData = {
     name: 'John Doe',
@@ -44,7 +44,7 @@ export class HeaderComponent {
   
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.isScrolled = window.pageYOffset > 0;
+    this.isScrolled = window.pageYOffset;
   }
 
   @HostListener('window:resize', [])
@@ -59,7 +59,7 @@ export class HeaderComponent {
   }
 
   scrollToContent(): void {
-    const contentElement = document.getElementById('main-content');
+    const contentElement = document.getElementById('main');
     if (contentElement) {
       contentElement.scrollIntoView({ behavior: 'smooth' });
     }

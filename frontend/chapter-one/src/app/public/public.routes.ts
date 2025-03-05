@@ -11,6 +11,10 @@ const routes:Routes = [
             {
                 path: '',
                 loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
+            },
+            {
+                path: 'list',
+                loadComponent: () => import('./listing/listing.component').then(m => m.ListingComponent),
             }
         ]
 
