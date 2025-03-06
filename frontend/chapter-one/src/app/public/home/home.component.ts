@@ -32,12 +32,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
       this.store.select(selectAllAdminAuthors).pipe(take(1)).subscribe(authors => {
           if (!authors || authors.length === 0) {
-            this.store.dispatch(AdminAuthorActions.loadAdminAuthors({ page: 1, limit: 10 }));
+            this.store.dispatch(AdminAuthorActions.loadAdminAuthors({ page: 1 }));
           }
         });
       this.store.select(selectAllAdminGenres).pipe(take(1)).subscribe(genres => {
           if (!genres || genres.length === 0) {
-            this.store.dispatch(AdminGenreActions.loadAdminGenres({ page: 1, limit: 10 }));
+            this.store.dispatch(AdminGenreActions.loadAdminGenres({ page: 1 }));
           }
         });
   }

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Book, BookListItem } from '../models/book.model';
+import { Book, BookFilter, BookListItem } from '../models/book.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -27,11 +27,24 @@ export class BookService {
   private readonly API_URL = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
-
-  getAllBooks(page = 1, limit = 10): Observable<BookResponse> {
-    return this.http.get<BookResponse>(`${this.API_URL}/books`, {
-      params: { page: page.toString(), limit: limit.toString() }
-    });
+  getAllBooks(page = 1, limit = 10, filters?: BookFilter): Observable<BookResponse> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const params:any = {
+      page: page.toString(),
+      limit: limit.toString(),
+    };
+    if (filters) {
+      if (filters.minPrice !== undefined) params.minPrice = filters.minPrice.toString();
+      if (filters.maxPrice !== undefined) params.maxPrice = filters.maxPrice.toString();
+      if (filters.authorId !== undefined) params.authorId = filters.authorId.toString();
+      if (filters.genreIds && filters.genreIds.length > 0) {
+        params.genreIds = filters.genreIds.join(',');
+      }
+      if (filters.searchQuery) {
+        params.searchQuery = filters.searchQuery;
+      }
+    }
+    return this.http.get<BookResponse>(`${this.API_URL}/books`, { params });
   }
 
   getBook(id: number): Observable<Book> {

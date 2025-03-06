@@ -20,3 +20,11 @@ export interface Book {
   
   export type BookListItem = Pick<Book, 'id' | 'name' | 'ISBN' | 'price' | 'updatedAt' | 'image'>;
   
+
+  export interface BookFilter {
+    minPrice?: number;
+    maxPrice?: number;
+    authorId?: number;
+    genreIds?: number[];
+    searchQuery?: string;
+  }

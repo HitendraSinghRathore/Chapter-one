@@ -20,6 +20,7 @@
               type="text"
               placeholder="Enter your email or mobile"
               formControlName="loginValue"
+              autocomplete="username"
             />
             <mat-error *ngIf="loginValue?.invalid && (loginValue?.touched || loginValue?.dirty)">
               <ng-container *ngIf="loginValue?.errors?.['required']">
@@ -37,6 +38,7 @@
               [type]="passwordVisible ? 'text' : 'password'"
               placeholder="Enter password"
               formControlName="password"
+              autocomplete="current-password"
             />
             <mat-icon matSuffix (click)="togglePassword()" aria-hidden="false">
               <ng-icon

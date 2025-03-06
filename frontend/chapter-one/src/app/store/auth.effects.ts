@@ -91,16 +91,16 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.logoutSuccess),
         tap(({ message }) => {
-          this.snackBar.open(message || 'Logout successful', 'OK', { duration: 3000, horizontalPosition: 'center', verticalPosition: 'top' });
           localStorage.removeItem('authToken');
           const sessionId =  uuidv4();
           this.authService.setSessionId(sessionId);
-          this.snackBar.open('Logout successful', 'close', {
+          this.snackBar.open(message || 'Logout successful', 'close', {
             duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top'
           });
-          this.router.navigate(['/']);
+          this.router.navigate(['/'])
+         
         })
       ),
     { dispatch: false }
