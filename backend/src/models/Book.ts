@@ -116,6 +116,7 @@ export function initBookModel(sequelize: Sequelize): typeof Book {
     {
       sequelize,
       tableName: 'books',
+      defaultScope: {},
       timestamps: true,
       createdAt: 'created_at',
       updatedAt: 'updated_at',

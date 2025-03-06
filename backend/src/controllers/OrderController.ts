@@ -7,7 +7,7 @@ import { CartItem } from '../models/CartItem';
 import { Book } from '../models/Book';
 import { sequelize } from '../database/postgres';
 import { Address } from '../models/Address';
-import { User } from '../models/User';
+
 
 
 export default class OrderController {
@@ -135,8 +135,7 @@ export default class OrderController {
       const orders = await Order.findAll({
         include: [
           { model: OrderItem, as: 'items', include: [{ model: Book, as: 'book' }] },
-          { model: Address, as: 'address' },
-          { model: User, as: 'user' },
+          { model: Address, as: 'address', attributes: ['id', 'contactName', 'address'] }
         ],
         order: [['created_at', 'DESC']],
       });

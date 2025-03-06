@@ -5,7 +5,12 @@ import { Book } from '../models/Book';
 import { Genre } from '../models/Genre';
 import { Author } from '../models/Author';
 import { GridFSFile } from '../types/interface.types';
+import { sequelize } from '../database/postgres';
 
+interface PriceResponse {
+  min: number;
+  max: number;
+}
 export default class BookController {
   static async createBook(req: Request, res: Response): Promise<Response> {
     const errors = validationResult(req);
@@ -143,7 +148,7 @@ export default class BookController {
         genreIds,   
       } = req.query;
 
-      const pageNum = page ? parseInt(page as string, 10) : 0;
+      const pageNum = page ? parseInt(page as string, 10) : 1;
       const limitNum = limit ? parseInt(limit as string, 10) : 10;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const whereClause: any = {};
@@ -211,5 +216,24 @@ export default class BookController {
       console.error('Error fetching books:', error);
       throw error;
     }
+  }
+  static async getBookPrices(req: Request, res: Response): Promise<Response> {
+    try {
+      const sqlQuery = 'SELECT MAX(price) as max, MIN(price) as min from "books";';
+      const [result] = await sequelize.query(sqlQuery) as [PriceResponse[], unknown];
+      if(result && result.length > 0) {
+        return res.status(200).json({
+          min: Number(result[0].min),
+          max: Number(result[0].max),
+        });
+      }
+      return res.status(201).json({
+        min: 0, max: 0
+      });
+    } catch (error) {
+      console.error('Error fetching book prices:', error);
+      throw error;
+    }
+   
   }
 }

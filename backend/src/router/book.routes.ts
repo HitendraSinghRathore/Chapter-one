@@ -57,12 +57,6 @@ router.put(
 );
 
 router.get(
-  '/:id',
-  [param('id').isInt().withMessage('Invalid book id')],
-  asyncHandler(BookController.getBook)
-);
-
-router.get(
   '/',
   [
     query('page').optional().isInt({ min: 0 }).withMessage('Page must be >= 0'),
@@ -75,5 +69,13 @@ router.get(
   ],
   asyncHandler(BookController.getBooks)
 );
+router.get('/prices', asyncHandler(BookController.getBookPrices));
+router.get(
+  '/:id',
+  [param('id').isInt().withMessage('Invalid book id')],
+  asyncHandler(BookController.getBook)
+);
+
+
 
 export default router;

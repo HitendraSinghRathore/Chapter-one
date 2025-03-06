@@ -4,7 +4,7 @@ import { initUserModel } from '../models/User';
 import { seedAdmin } from './seedAdmin';
 import { Genre, initGenreModel } from '../models/Genre';
 import { Author, initAuthorModel } from '../models/Author';
-import { initAddressModel } from '../models/Address';
+import { Address, initAddressModel } from '../models/Address';
 import { Book, initBookModel } from '../models/Book';
 import { Collection, initCollectionModel } from '../models/Collection';
 import { Cart, initCartModel } from '../models/Cart';
@@ -55,6 +55,7 @@ export function initModels(): void {
     OrderItem.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
     OrderItem.belongsTo(Book, { foreignKey: 'bookId', as: 'book' });
     Book.hasMany(OrderItem, { foreignKey: 'bookId', as: 'orderItems' });
+    Order.belongsTo(Address, { foreignKey: 'addressId', as: 'address' });
    
 }
 export async function syncDatabase(force = false): Promise<void> {
