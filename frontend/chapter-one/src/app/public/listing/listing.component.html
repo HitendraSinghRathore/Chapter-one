@@ -1,6 +1,37 @@
 <mat-drawer-container class="listing-container">
-    <mat-drawer [mode]="drawerMode" [opened]="isSidenavOpened" class="menu-drawer">
-        Testdata
+    <mat-drawer [mode]="drawerMode" [opened]="isSidenavOpened" class="menu-drawer" #filterDrawer >
+        <aside>
+        <h3>Filters</h3>
+        <div class="filter-container">
+            <div class="label">
+                <label class="price-label"> Price </label>
+            </div>
+            <div class="filter-section">
+            <mat-slider [min]="priceRange.min" [max]="priceRange.max" #priceSlider discrete [displayWith]="formatLabel">
+                <input matSliderStartThumb  #leftSlider [(ngModel)]="minPrice" (change)="updateSliders()">
+                <input matSliderEndThumb  #rightSlider [(ngModel)]="maxPrice" (change)="updateSliders()"> 
+                
+            </mat-slider>
+        </div>
+        <div class="label">
+            <label>Author</label>
+        </div>
+        <div class="filter-section">
+            <ng-container *ngFor="let author of authors$ | async as authors">
+                <mat-checkbox [(ngModel)]="selectedAuthorMap[author.id]" (ngModelChange)="onAuthorChange()">{{author.name}}</mat-checkbox>
+        </ng-container>
+        </div>
+        <div class="label">
+            <label>Genre</label>
+        </div>
+        <div class="filter-section">
+            <ng-container *ngFor="let genre of genres$ | async as genres">
+                <mat-checkbox [(ngModel)]="selectedGenreMap[genre.id]" (ngModelChange)="onGenreChange()">{{genre.name}}</mat-checkbox>
+        </ng-container>
+        </div>
+
+        </div>
+        </aside>
     </mat-drawer>
     <mat-drawer-content id="main" class="book-container">
         <h1 class="page-title">Books</h1>
@@ -12,14 +43,17 @@
                         <ng-icon name="hero-magnifying-glass" size="22"></ng-icon>
                     </button>
                 </mat-form-field>
-                <button mat-icon-button class="search--container--button">
+                <button mat-icon-button class="search--container--button" (click)="filterDrawer.toggle()">
                     <ng-icon name="hero-funnel" size="22"></ng-icon>
                 </button>
             </div>
             <div *ngIf="loading$ | async; else booksContent">
-                <app-shimmer width="100%" height="240px" borderRadius="4px"></app-shimmer>
+                <div class="book-grid" >
+                    <app-shimmer width="100%" height="240px" borderRadius="4px"  *ngFor="let _ of [1,2,3,4,5,6]"></app-shimmer>
+                </div>
               </div>
-            <ng-template #booksContent class="book-grid">
+            <ng-template #booksContent >
+                <div class="book-grid">
                 <div class="book-grid--item" *ngFor="let book of publicBooks$ | async">
                     <div class="book-grid--item--image">
                         <img [src]="'http://localhost:8080' + book.image" alt="Book image">
@@ -28,14 +62,17 @@
                         <div class="book-grid--item--info--title">
                             <h3>{{ book.name }}</h3>
                         </div>
+                        <div class="book-grid--item--info--footer">
                         <div class="book-grid--item--info--author">
                             <p>{{ book.author.name }}</p>
                         </div>
                         <div class="book-grid--item--info--price">
                             <p>{{ book.price | currency }}</p>
                         </div>
+                    </div>
                         </div>
                         </div>
+                    </div>
             </ng-template>
             <div class="paginator" *ngIf="pagination$ | async as pagination">
                 <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"

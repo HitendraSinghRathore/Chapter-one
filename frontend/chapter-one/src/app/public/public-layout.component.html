@@ -49,9 +49,15 @@
       </div>
       
     </mat-sidenav>
-    <mat-sidenav-content>
-      <app-header (sidenavToggle)="drawer.toggle()" [cartCount]="cartCount" [user]="userProfile$ | async"></app-header>
+    <mat-sidenav-content class="sidenav-content">
+      <div class="header">
+         <app-header (sidenavToggle)="drawer.toggle()" [cartCount]="cartCount" [user]="userProfile$ | async" ></app-header>
+    </div>
+    <div class="content">
       <router-outlet></router-outlet>
-      <app-footer></app-footer>
+    </div>
+    <div class="footer">
+      <app-footer ></app-footer>
+    </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

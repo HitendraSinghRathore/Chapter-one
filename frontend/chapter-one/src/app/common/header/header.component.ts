@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
   }
   onSearch(): void {
     console.log('Searching for:', this.searchQuery);
-    this.router.navigate(['/list'], { queryParams: { query: this.searchQuery } });
+    this.router.navigate(['/list'], { queryParams: { name: this.searchQuery } });
   }
   testTrigger() {
     console.log('test');

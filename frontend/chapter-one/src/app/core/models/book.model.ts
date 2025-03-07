@@ -26,7 +26,7 @@ export interface Book {
   export interface BookFilter {
     minPrice?: number | null;
     maxPrice?: number | null;
-    authorId?: number | null;
+    authorId?: number[] | null;
     genreIds?: number[] | null;
-    searchQuery?: string | null;
+    name?: string | null;
   }

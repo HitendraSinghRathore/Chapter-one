@@ -40,8 +40,8 @@ export class BookService {
       if (filters.genreIds && filters.genreIds.length > 0) {
         params.genreIds = filters.genreIds.join(',');
       }
-      if (filters.searchQuery) {
-        params.searchQuery = filters.searchQuery;
+      if (filters.name) {
+        params.name = filters.name;
       }
     }
     return this.http.get<BookResponse>(`${this.API_URL}/books`, { params });

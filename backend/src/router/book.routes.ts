@@ -64,7 +64,7 @@ router.get(
     query('name').optional().isString().withMessage('Name filter must be a string'),
     query('minPrice').optional().isDecimal().withMessage('minPrice must be a decimal'),
     query('maxPrice').optional().isDecimal().withMessage('maxPrice must be a decimal'),
-    query('authorId').optional().isInt().withMessage('Author id must be an integer'),
+    query('authorId').optional().isString().withMessage('Author id must be a comma separated string'),
     query('genreIds').optional().isString().withMessage('Genre ids must be a comma separated string'),
   ],
   asyncHandler(BookController.getBooks)

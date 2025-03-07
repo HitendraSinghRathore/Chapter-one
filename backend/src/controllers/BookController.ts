@@ -160,9 +160,7 @@ export default class BookController {
         if (minPrice) whereClause.price[Op.gte] = parseFloat(minPrice as string);
         if (maxPrice) whereClause.price[Op.lte] = parseFloat(maxPrice as string);
       }
-      if (authorId) {
-        whereClause.authorId = authorId;
-      }
+      
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const includeClause: any = [
         { model: Genre, as: 'genres', through: { attributes: [] } },
@@ -171,6 +169,10 @@ export default class BookController {
       if (genreIds) {
         const genreArray = (genreIds as string).split(',').map(id => parseInt(id, 10));
         includeClause[0].where = { id: { [Op.in]: genreArray } };
+      }
+      if (authorId) {
+        const authorArray = (authorId as string).split(',').map(id => parseInt(id, 10));
+       includeClause[1].where = { id: { [Op.in]: authorArray } };
       }
       const currentPage = pageNum - 1;
       const { count, rows: books } = await Book.findAndCountAll({
