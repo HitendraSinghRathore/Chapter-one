@@ -34,9 +34,9 @@ export class BookService {
       limit: limit.toString(),
     };
     if (filters) {
-      if (filters.minPrice !== undefined) params.minPrice = filters.minPrice.toString();
-      if (filters.maxPrice !== undefined) params.maxPrice = filters.maxPrice.toString();
-      if (filters.authorId !== undefined) params.authorId = filters.authorId.toString();
+      if (filters.minPrice !== null && filters.minPrice !== undefined) params.minPrice = filters.minPrice.toString();
+      if (filters.maxPrice !== null && filters.maxPrice !== undefined) params.maxPrice = filters.maxPrice.toString();
+      if (filters.authorId !== null && filters.authorId !== undefined) params.authorId = filters.authorId.toString();
       if (filters.genreIds && filters.genreIds.length > 0) {
         params.genreIds = filters.genreIds.join(',');
       }
@@ -62,5 +62,8 @@ export class BookService {
 
   deleteBook(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/books/${id}`);
+  }
+  fetchPrice(): Observable<{ min: number; max: number }> {
+    return this.http.get<{ min: number; max: number }>(`${this.API_URL}/books/prices`);
   }
 }

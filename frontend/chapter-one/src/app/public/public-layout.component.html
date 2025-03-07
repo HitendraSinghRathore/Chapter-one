@@ -1,21 +1,31 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #drawer class="menu-drawer" mode="over">
       <div class="menu-content">
-        <nav class="menu-links">
-          <a routerLink="/explore" class="menu-link">
-            <span class="link-icon">
-              <ng-icon name="hero-chevron-down" size="20"></ng-icon>
-            </span>
-            <span class="link-text">Explore</span>
-          </a>
-          <a routerLink="/cart" class="menu-link">
-            <span class="link-icon">
-              <ng-icon name="hero-shopping-bag" size="20"></ng-icon>
-            </span>
-            <span class="link-text">Cart</span>
-            <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
-          </a>
-        </nav>
+        <div>
+          <div class="search-container" *ngIf="!isListRoute">
+            <mat-form-field appearance="outline" class="search-container--field">
+              <input matInput placeholder="Search" class="search-input" type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"/>
+              <button mat-icon-button matPrefix class="search-container--button" (click)="onSearch()">
+                <ng-icon name="hero-magnifying-glass" size="22"></ng-icon>
+              </button>
+          </mat-form-field>
+          </div>
+            <nav class="menu-links">
+              <a routerLink="/explore" class="menu-link">
+                <span class="link-icon">
+                  <ng-icon name="hero-chevron-down" size="20"></ng-icon>
+                </span>
+                <span class="link-text">Explore</span>
+              </a>
+              <a routerLink="/cart" class="menu-link">
+                <span class="link-icon">
+                  <ng-icon name="hero-shopping-bag" size="20"></ng-icon>
+                </span>
+                <span class="link-text">Cart</span>
+                <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+              </a>
+            </nav>
+        </div>
         <ng-container *ngIf="userProfile$ | async as userProfile">
         <div class="user-profile">
           <div class="user-info">
@@ -23,7 +33,7 @@
                
               
             <p class="user-name"> {{ userProfile.name }}</p>
-            <p class="user-email" *ngIf="user.email"> {{ userProfile.email }}</p>
+            <p class="user-email" *ngIf="userProfile.email"> {{ userProfile.email }}</p>
         
           </div>
           <div class="user-actions" *ngIf="userProfile.email else userLogin">

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, HostListener, Input, Output, EventEmitter, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,7 +9,8 @@ import { heroBars4, heroChevronDown, heroHome, heroMagnifyingGlass, heroShopping
 import {MatMenuModule} from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { UserProfile } from '../../core/models/user-profile.model';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,7 +28,7 @@ import { Router } from '@angular/router';
     ] ,
     providers: [provideIcons({heroHome, heroUser, heroShoppingBag, heroMagnifyingGlass, heroBars4, heroChevronDown})]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() cartCount: number = 0;
   @Input() user: UserProfile|null = null;
   @Output() sidenavToggle = new EventEmitter<void>();
@@ -36,6 +37,7 @@ export class HeaderComponent {
 
   searchQuery: string = '';
   isScrolled: number = 0;
+  isListRoute =  window.location.href.includes('/list');
   isMobile: boolean = window.innerWidth <= 768; 
   userData = {
     name: 'John Doe',
@@ -50,6 +52,13 @@ export class HeaderComponent {
   @HostListener('window:resize', [])
   onResize(): void {
     this.isMobile = window.innerWidth <= 768;
+  }
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event:NavigationEnd) => {
+      this.isListRoute = event.urlAfterRedirects.includes('/list');
+    });
   }
   logout(): void {
     console.log('User logged out');
@@ -70,8 +79,11 @@ export class HeaderComponent {
   }
   onSearch(): void {
     console.log('Searching for:', this.searchQuery);
+    this.router.navigate(['/list'], { queryParams: { query: this.searchQuery } });
   }
-
+  testTrigger() {
+    console.log('test');
+  }
   toggleSidenav(): void {
     this.sidenavToggle.emit();
   }

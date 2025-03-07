@@ -1,3 +1,4 @@
+import { Author } from "./author.model";
 import { Genre } from "./genre.model";
 
 export interface Book {
@@ -13,18 +14,19 @@ export interface Book {
     edition: string;
     image: string | null;
     authorId: number;
+    author: Author;
     createdAt: Date;
     updatedAt: Date;
     genres: Genre[];
   }
   
-  export type BookListItem = Pick<Book, 'id' | 'name' | 'ISBN' | 'price' | 'updatedAt' | 'image'>;
+  export type BookListItem = Pick<Book, 'id' | 'name' | 'ISBN' | 'price' | 'updatedAt' | 'image' | 'author'>;
   
 
   export interface BookFilter {
-    minPrice?: number;
-    maxPrice?: number;
-    authorId?: number;
-    genreIds?: number[];
-    searchQuery?: string;
+    minPrice?: number | null;
+    maxPrice?: number | null;
+    authorId?: number | null;
+    genreIds?: number[] | null;
+    searchQuery?: string | null;
   }

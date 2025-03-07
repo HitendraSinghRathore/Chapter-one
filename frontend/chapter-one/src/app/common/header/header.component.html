@@ -12,9 +12,9 @@
      
       
       <div class="actions">
-        <div class="dense search hide-on-mobile">
+        <div class="dense search hide-on-mobile" *ngIf="!isListRoute">
         <mat-form-field class="search-field" appearance="outline" floatLabel="auto" subscriptSizing="dynamic">
-          <input matInput placeholder="Search" [(ngModel)]="searchQuery">
+          <input matInput placeholder="Search" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()">
           <button mat-icon-button matPrefix (click)="onSearch()">
             <ng-icon name="hero-magnifying-glass" size="22"></ng-icon>
           </button>

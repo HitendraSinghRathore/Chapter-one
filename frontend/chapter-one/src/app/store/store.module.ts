@@ -10,8 +10,24 @@ import { AdminBookEffects } from './admin-book/admin-book.effects';
 import { adminBookReducer } from './admin-book/admin-book.reducer';
 import { AdminOrderEffects } from './admin-order/admin-order.effects';
 import { adminOrderReducer } from './admin-order/admin-order.reducer';
+import { publicBooksReducer } from './public-book/public-book.reducer';
+import { PublicBookEffects } from './public-book/public-book.effect';
 
 export const storeProviders = [
-  provideStore({ auth: authReducer, adminGenre: adminGenreReducer, adminAuthor: adminAuthorReducer, adminBook: adminBookReducer, adminOrder: adminOrderReducer }),
-  provideEffects([AuthEffects, AdminGenreEffects, AdminAuthorEffects, AdminBookEffects, AdminOrderEffects]),
+  provideStore({ 
+    auth: authReducer, 
+    adminGenre: adminGenreReducer, 
+    adminAuthor: adminAuthorReducer, 
+    adminBook: adminBookReducer, 
+    adminOrder: adminOrderReducer,
+    publicBooks: publicBooksReducer,
+  }),
+  provideEffects([
+    AuthEffects, 
+    AdminGenreEffects, 
+    AdminAuthorEffects, 
+    AdminBookEffects, 
+    AdminOrderEffects,
+    PublicBookEffects
+  ]),
 ];
