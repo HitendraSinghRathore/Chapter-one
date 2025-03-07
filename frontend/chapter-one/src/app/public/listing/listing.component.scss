@@ -103,7 +103,7 @@
     }
   }
   .paginator {
-    margin: 24px 0;
+    margin: 24px 0 48px 0;
   }
   aside {
     padding: 24px 16px;
@@ -136,4 +136,17 @@
         }
     }
 
+  }
+  .no-data-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    img {
+        width: 100%;
+        max-width: 400px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
   }

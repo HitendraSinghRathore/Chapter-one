@@ -11,6 +11,7 @@ import * as AdminGenreActions from "../../store/admin-genre/admin-genre.actions"
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { heroArrowLongRight, heroBookOpen, heroHeart, heroRocketLaunch, heroStar } from "@ng-icons/heroicons/outline";
 import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
 // Import the ng-icon component if needed (uncomment and adjust based on your project setup)
 
 
@@ -24,6 +25,7 @@ import { CommonModule } from "@angular/common";
 })
 export class HomeComponent implements OnInit {
   store = inject(Store);
+  router = inject(Router);
   authors$: Observable<Author[]> = this.store.select(selectAllAdminAuthors).pipe(map(value => {
     return value.slice(0,4);
   }));
@@ -43,5 +45,12 @@ export class HomeComponent implements OnInit {
   }
   trackByAuthorId(index: number, author: Author): number { 
     return author?.id; 
+  }
+  navigate(author:number = 0): void {
+    if(author) {
+      this.router.navigate(['/list'], { queryParams: { authorId: author.toString() } });
+    } else {
+    this.router.navigate(['/list']);
+    }
   }
 }

@@ -58,4 +58,5 @@ export class PublicLayoutComponent implements OnInit {
         console.log('Searching for:', this.searchQuery);
         this.router.navigate(['/list'], { queryParams: { name: this.searchQuery } });
       }
+     
 }

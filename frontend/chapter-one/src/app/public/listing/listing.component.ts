@@ -14,7 +14,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroFunnel, heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
+import {  heroFunnel, heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { selectAllPublicBooks, selectPublicBooksLoading, selectPublicBooksPagination } from '../../store/public-book/public-book.selector';
 import { ShimmerComponent } from "../../common/app-shimmer.component";
 import {MatSliderModule} from '@angular/material/slider';

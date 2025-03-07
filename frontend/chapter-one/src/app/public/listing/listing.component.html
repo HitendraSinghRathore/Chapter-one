@@ -37,6 +37,7 @@
         <h1 class="page-title">Books</h1>
         <section class="listing-container--content">
             <div class="search--container">
+                
                 <mat-form-field appearance="outline" class="search--container--field dense">
                     <input matInput placeholder="Search" class="search--input" type="text" [(ngModel)]="query" (keyup.enter)="onSearch()"/>
                     <button mat-icon-button matPrefix class="search--container--button" (click)="onSearch()">
@@ -46,6 +47,7 @@
                 <button mat-icon-button class="search--container--button" (click)="filterDrawer.toggle()">
                     <ng-icon name="hero-funnel" size="22"></ng-icon>
                 </button>
+                
             </div>
             <div *ngIf="loading$ | async; else booksContent">
                 <div class="book-grid" >
@@ -53,8 +55,10 @@
                 </div>
               </div>
             <ng-template #booksContent >
+                <ng-container *ngIf="publicBooks$ | async as books">
+                    <div *ngIf="books.length > 0 else noBooks">
                 <div class="book-grid">
-                <div class="book-grid--item" *ngFor="let book of publicBooks$ | async">
+                <div class="book-grid--item" *ngFor="let book of books">
                     <div class="book-grid--item--image">
                         <img [src]="'http://localhost:8080' + book.image" alt="Book image">
                     </div>
@@ -72,16 +76,26 @@
                     </div>
                         </div>
                         </div>
-                    </div>
-            </ng-template>
-            <div class="paginator" *ngIf="pagination$ | async as pagination">
-                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
-                               [pageSize]="pagination.limit"
-                               [pageIndex]="pagination.page - 1"
-                               [length]="pagination.total"
-                               (page)="onPageChange($event)">
-                </mat-paginator>
                 </div>
+                <div class="paginator" *ngIf="pagination$ | async as pagination">
+                    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
+                                   [pageSize]="pagination.limit"
+                                   [pageIndex]="pagination.page - 1"
+                                   [length]="pagination.total"
+                                   (page)="onPageChange($event)">
+                    </mat-paginator>
+                    </div>
+                </div>
+                <ng-template #noBooks>
+                    <div class="no-data-content">
+                       <img src="Emptystate-No-Search-Results-Found--Streamline-Milano.png" alt="No books found" width="100%">
+                        <h1>No books found</h1>
+                    </div>
+                </ng-template>
+                </ng-container>
+            </ng-template>
+            
+          
         </section>
     </mat-drawer-content>
 </mat-drawer-container>
