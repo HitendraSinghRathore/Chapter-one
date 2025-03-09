@@ -21,9 +21,9 @@
         </mat-form-field>
     </div>
         
-    <button mat-icon-button class="cart-btn hide-on-mobile">
+    <button mat-icon-button class="cart-btn hide-on-mobile" (click)="goToCart()">
         <ng-icon name="hero-shopping-bag" size="24"></ng-icon>
-        <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+        <span class="cart-count" *ngIf="cartCount && cartCount > 0">{{ cartCount }}</span>
       </button>
         
       <button mat-icon-button class="user-btn hide-on-mobile" [matMenuTriggerFor]="userMenu" *ngIf="(user?.email || user?.mobile ) else userLoginBtn">
@@ -51,7 +51,6 @@
     </div>
     <div class="button-group" *ngIf="user?.email else userLogin">
    
-    <button mat-stroked-button (click)="logout()">Profile</button>
     <button mat-stroked-button (click)="logout()">Logout</button>
     </div>
     <ng-template #userLogin>

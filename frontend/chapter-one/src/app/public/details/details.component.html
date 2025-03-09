@@ -1,0 +1,45 @@
+<main class="details-container">
+    <nav>
+        <button mat-icon-button class="back-btn" (click)="router.navigate(['/list'])">
+            <ng-icon name="hero-arrowLongLeft" size="24"></ng-icon>
+        </button>
+    </nav>
+    <div id="main" class="book-container">
+        <div class="loader-component" *ngIf="loading$ | async; else content">
+            <app-shimmer width="360px" height="480px" borderRadius="4px" class="image-loader"></app-shimmer>
+            <div class="content-shimmer">
+                <app-shimmer width="100%" height="48px" borderRadius="4px"></app-shimmer>
+                <app-shimmer width="100%" height="48px" borderRadius="4px"></app-shimmer>
+                <app-shimmer width="100%" height="48px" borderRadius="4px"></app-shimmer>
+            </div>
+        </div>
+        <ng-template #content>
+            <div class="book-data" *ngIf="selectedBook$ | async as book">
+        <div class="book-image">
+            <img alt="book" src="{{book.image}}"/>
+        </div>
+        <div class="book-content">
+            <div>
+                <h1 class="book-title">{{ book.name }}</h1>
+                <hr>
+            </div>
+            <p class="book-description">{{ book.description }}</p>
+            <h3>Details</h3>
+            <div class="book-details">
+                <p><strong>Author: </strong> {{ book.author.name }}</p>
+                <p><strong>Genre: </strong> {{ book.genres[0].name }}</p>
+                <p><strong>Page Count: </strong> {{ book.pageCount }}</p>
+                <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
+                <p><strong>Published Date:</strong> {{ book.publishedDate | date }}</p>
+                <p class="price"> {{ book.price | currency }}</p>
+            </div>
+            <div class="btn-container">
+                <button mat-stroked-button color="primary" (click)="addToCart(book)">Add to Cart</button>
+                <button mat-raised-button color="primary" (click)="buyNow(book)">Buy Now</button>
+            </div>
+
+        </div>
+    </div>
+    </ng-template>
+    </div>
+</main>

@@ -11,7 +11,7 @@
         <div class="form-grid">
           <div class="image-column">
             <app-image-uploader 
-              [existingImageUrl]="'http://localhost:8080' + existingImageUrl" 
+              [existingImageUrl]="existingImageUrl" 
               (fileChange)="onFileChange($event)">
             </app-image-uploader>
           </div>

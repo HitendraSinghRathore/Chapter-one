@@ -29,7 +29,7 @@ import { filter } from 'rxjs';
     providers: [provideIcons({heroHome, heroUser, heroShoppingBag, heroMagnifyingGlass, heroBars4, heroChevronDown})]
 })
 export class HeaderComponent implements OnInit {
-  @Input() cartCount: number = 0;
+  @Input() cartCount: number|null = 0;
   @Input() user: UserProfile|null = null;
   @Output() sidenavToggle = new EventEmitter<void>();
   showSidenav: boolean = false; 
@@ -39,11 +39,7 @@ export class HeaderComponent implements OnInit {
   isScrolled: number = 0;
   isListRoute =  window.location.href.includes('/list');
   isMobile: boolean = window.innerWidth <= 768; 
-  userData = {
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  };
-  
+
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     this.isScrolled = window.pageYOffset;
@@ -81,10 +77,11 @@ export class HeaderComponent implements OnInit {
     console.log('Searching for:', this.searchQuery);
     this.router.navigate(['/list'], { queryParams: { name: this.searchQuery } });
   }
-  testTrigger() {
-    console.log('test');
-  }
+ 
   toggleSidenav(): void {
     this.sidenavToggle.emit();
+  }
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 }

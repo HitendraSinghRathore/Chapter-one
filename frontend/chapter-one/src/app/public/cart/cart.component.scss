@@ -1,0 +1,117 @@
+@import '../../../styles/variables';
+.cart-container {
+    padding: 24px 24px 48px 24px;
+    background-color: var(--grey-300);
+    nav {
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        gap:24px;
+        h1 {
+            font-size: 2rem;
+        }
+    }
+    
+}
+.cart-display-container {
+    margin-top: 48px;
+    min-height: 50vh;
+
+}
+.cart-loading-shimmer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    app-shimmer {
+        width: 100%;
+    }
+}
+.empty-cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    img {
+        width: 100%;
+        max-width: 400px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+
+}
+.cart-item {
+    position: relative;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &--info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        &--title {
+            h3 {
+                font-size: 1.5rem;
+                white-space: break-spaces;
+                margin: 0;
+            }
+        }
+        &--price {
+            p {
+                font-size: 1.25rem;
+                color: #666;
+            }
+        }
+        &--total {
+            margin-top: 16px;;
+            p {
+                font-size: 1.25rem;
+                color: #fff;
+                text-align: right;
+                padding:4px 8px;
+                border-radius: 4px;
+                background-color: var(--grey-900);
+                width: fit-content;
+            }
+        }
+    }
+}
+.item--btn {
+    display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        p {
+            font-size: 1.75rem;
+        }
+    
+}
+.item--btn--form {
+    width: 100px;
+    margin-top: 24px;
+}
+.quantity-input {
+    text-align: right;
+}
+.delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 2px;
+}
+.price-details {
+    margin: 16px 0 24px 0;
+    p {
+        font-size: 1.75rem;
+    }
+
+}
+.cart-footer--actions {
+    display: flex;
+    gap: 16px;
+}

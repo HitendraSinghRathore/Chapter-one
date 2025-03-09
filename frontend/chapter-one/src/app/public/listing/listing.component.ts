@@ -166,7 +166,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
   
   onBookClick(bookId: number): void {
-    this.store.dispatch(PublicBooksActions.loadPublicBookDetails({ id: bookId }));
+  
     this.router.navigate([`/book/${bookId}`]);
   }
   

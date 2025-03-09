@@ -15,7 +15,7 @@
                         <ng-container matColumnDef="image">
                             <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
                             <mat-cell *matCellDef="let author" class="author-image">
-                                <img *ngIf="author.image" src="http://localhost:8080{{author.image}}" alt="Author image" height="48" width="48">
+                                <img *ngIf="author.image" src="{{author.image}}" alt="Author image" height="48" width="48">
                                </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="name">

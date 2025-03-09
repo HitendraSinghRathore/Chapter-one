@@ -7,7 +7,6 @@ export interface AddressAttributes {
   address: string;        
   latitude: number;      
   longitude: number;     
-  primary: boolean;
   houseNo: string;        
   area: string;           
   landmark?: string;     
@@ -28,7 +27,6 @@ export class Address extends Model<AddressAttributes, AddressCreationAttributes>
   public id!: number;
   public contactName!: string;
   public address!: string;
-  public primary!: boolean;
   public latitude!: number;
   public longitude!: number;
   public houseNo!: string;
@@ -49,11 +47,6 @@ export function initAddressModel(sequelize: Sequelize): typeof Address {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      primary: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
       },
       contactName: {
         type: DataTypes.STRING(255),

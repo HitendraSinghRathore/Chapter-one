@@ -1,0 +1,77 @@
+<main class="cart-container">
+    <nav >
+        <button mat-icon-button class="back-btn" (click)="goBack()">
+            <ng-icon name="hero-arrowLongLeft" size="24"></ng-icon>
+        </button>
+        <h1>Your cart</h1>
+    </nav>
+    <section id="main" class="cart-display-container">
+        <div *ngIf="loading$ | async; else content" class="cart-loading-shimmer">
+            
+                <app-shimmer width="100%" height="64px" borderRadius="4px"></app-shimmer>
+                <app-shimmer width="100%" height="64px" borderRadius="4px"></app-shimmer>
+                <app-shimmer width="100%" height="64px" borderRadius="4px"></app-shimmer>
+        </div>
+        <ng-template #content>
+            <div *ngIf="cartItems$ | async as items">
+                <div *ngIf="items.length > 0; else emptyCart">
+                    <div class="cart-items-container">
+                        <div class="cart-item" *ngFor="let item of items">
+                            <div class="cart-item--info">
+                                <div class="cart-item--info--title">
+                                    <h3>{{ item.name }}</h3>
+                                </div>
+                                    <div class="cart-item--info--price">
+                                        <p>{{ item.price | currency }}</p>
+                                    </div>
+                            <div class="cart-item--info--total">
+                                <p>
+                            {{ item.totalCost | currency }}
+                        </p>
+                        </div>
+                            </div>
+                            <div class="item--btn">
+                                <button mat-flat-button class="delete-btn" (click)="removeCart(item.id)" >
+                                    <ng-icon name="hero-x-mark" size="22" ></ng-icon>
+                                 </button>
+                                    <p class="quantity-input">Quantity: {{item.quantity}}</p>
+                                    <button mat-icon-button matSuffix (click)="addCart(item)">
+                                        <ng-icon name="hero-plus" size="22"></ng-icon>
+                                    </button>
+                                
+                            </div>
+                        
+                       
+                            </div>
+                            </div>
+                </div>
+                <ng-template #emptyCart>
+                    <div class="empty-cart-container">
+                        <img src="Emptystates-Empty-Cart--Streamline-Milano.png" alt="No items in cart" width="100%">
+                        <h1>Your cart is empty</h1>
+                        <button mat-raised-button color="primary" (click)="shopMore()">Continue Shopping</button>
+                    </div>
+                </ng-template>
+                </div>
+                <hr>
+                <div class="cart-footer" *ngIf="totalValue$ | async as total">
+                    <section class="cart-footer--total">
+                        <div class="price-details">
+                            <h3>Cart Total:</h3>
+                            <p>{{ total | currency }}</p>
+                        </div>
+                        <div class="cart-footer--actions" *ngIf="userProfile$ | async as userProfile">
+                           
+                            <a mat-raised-button color="primary" routerLink="/login" *ngIf="!userProfile.email">Login </a>
+                            <button mat-stroked-button color="primary" routerLink="/checkout">
+                                <span *ngIf="!userProfile.email; else checkout">Continue as guest</span>
+                                <ng-template #checkout>
+                                    Checkout
+                                </ng-template>
+                            </button>
+                        </div>
+                    </section>
+                </div>
+        </ng-template>
+    </section>
+</main>

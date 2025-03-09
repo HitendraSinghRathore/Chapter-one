@@ -58,9 +58,9 @@
                 <ng-container *ngIf="publicBooks$ | async as books">
                     <div *ngIf="books.length > 0 else noBooks">
                 <div class="book-grid">
-                <div class="book-grid--item" *ngFor="let book of books">
+                <div class="book-grid--item" *ngFor="let book of books" (click)="onBookClick(book.id)">
                     <div class="book-grid--item--image">
-                        <img [src]="'http://localhost:8080' + book.image" alt="Book image">
+                        <img [src]=" book.image" alt="Book image">
                     </div>
                     <div class="book-grid--item--info">
                         <div class="book-grid--item--info--title">

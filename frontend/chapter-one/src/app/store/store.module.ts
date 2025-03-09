@@ -12,6 +12,10 @@ import { AdminOrderEffects } from './admin-order/admin-order.effects';
 import { adminOrderReducer } from './admin-order/admin-order.reducer';
 import { publicBooksReducer } from './public-book/public-book.reducer';
 import { PublicBookEffects } from './public-book/public-book.effect';
+import { cartReducer } from './cart/cart.reducer';
+import { CartEffects } from './cart/cart.effects';
+import { addressReducer } from './address/address.reducer';
+import { AddressEffects } from './address/address.effects';
 
 export const storeProviders = [
   provideStore({ 
@@ -21,6 +25,9 @@ export const storeProviders = [
     adminBook: adminBookReducer, 
     adminOrder: adminOrderReducer,
     publicBooks: publicBooksReducer,
+    cart: cartReducer,
+    address: addressReducer,
+    
   }),
   provideEffects([
     AuthEffects, 
@@ -28,6 +35,9 @@ export const storeProviders = [
     AdminAuthorEffects, 
     AdminBookEffects, 
     AdminOrderEffects,
-    PublicBookEffects
+    PublicBookEffects,
+    CartEffects,
+    AddressEffects
+
   ]),
 ];

@@ -4,20 +4,28 @@ import { HttpClient } from "@angular/common/http";
 import { Order } from "../models/order.model";
 import { Observable } from "rxjs";
 
-
 export interface OrderResponse {
-    data: Order[];
-  }
-  
+  data: Order[];
+}
+
+export interface CheckoutResponse {
+  message: string;
+  orderId: number;
+}
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class OrderService { 
-    private readonly API_URL = environment.apiUrl;
+  private readonly API_URL = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getAllOrders(): Observable<OrderResponse> {
-        return this.http.get<OrderResponse>(`${this.API_URL}/orders/admin`);
-    }
+  getAllOrders(): Observable<OrderResponse> {
+    return this.http.get<OrderResponse>(`${this.API_URL}/orders/admin`);
+  }
+  
+  checkout(payload: { addressId: number; cartId: number; paymentMode: string }): Observable<CheckoutResponse> {
+    return this.http.post<CheckoutResponse>(`${this.API_URL}/orders/checkout`, payload);
+  }
 }

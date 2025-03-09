@@ -29,18 +29,19 @@ export default class CartController {
       const cartItems = await cart.getItems();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const item of cartItems as any[]) {
-        const book = item.getDataValue('book');
-        const currentBook = await Book.findByPk(book.id);
+        const book = await item.getBook();
+        const currentBookPromise = await Book.findByPk(book.getDataValue('id'));
+        const currentBook = currentBookPromise ? currentBookPromise.toJSON() : null;
         if (!currentBook || item.quantity > currentBook.sellableQuantity) {
           outOfStock.push({
-            bookId: book.id,
-            name: book.name,
+            bookId: book.getDataValue('id'),
+            name: book.getDataValue('name'),
             requested: item.quantity,
             available: currentBook ? currentBook.sellableQuantity : 0,
           });
           await item.destroy();
         } else {
-          total += parseFloat(book.price.toString()) * item.quantity;
+          total += parseFloat(book.getDataValue('price').toString()) * item.quantity;
         }
       }
 
@@ -49,7 +50,7 @@ export default class CartController {
         include: [{ model: CartItem, as: 'items', include: [{ model: Book, as: 'book' }] }],
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const items = (await cart?.getItems() as any[]).map((item: any) => {
+      const items = (await cart?.getItems({ include:[ { model: Book, as: 'book' }] }) as any[]).map((item: any) => {
         const book = item.book;
         return {
           id: item.id,
@@ -75,7 +76,7 @@ export default class CartController {
   static async addToCart(req: Request, res: Response): Promise<Response> {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-    const { bookId, quantity } = req.body;
+    const { id, quantity } = req.body;
     const userId = req.user?.id?.toString();
     if (!userId) return res.status(400).json({ message: 'User identifier not found' });
     
@@ -91,19 +92,19 @@ export default class CartController {
         cart = await Cart.create({ user: userId }, { transaction: t });
       }
       
-      const book = await Book.findByPk(bookId, { transaction: t });
+      const book = await Book.findByPk(id, { transaction: t });
       if (!book) {
         await t.rollback();
         return res.status(404).json({ message: 'Book not found' });
       }
       
-      const cartItem = await CartItem.findOne({ where: { cartId: cart.id, bookId }, transaction: t });
+      const cartItem = await CartItem.findOne({ where: { cartId: cart.id, bookId:id }, transaction: t });
       const newQuantity = cartItem ? cartItem.quantity + qty : qty;
       
       if (cartItem) {
         await cartItem.update({ quantity: newQuantity }, { transaction: t });
       } else {
-        await CartItem.create({ cartId: cart.id, bookId, quantity: newQuantity }, { transaction: t });
+        await CartItem.create({ cartId: cart.id, bookId:id, quantity: newQuantity }, { transaction: t });
       }
       
       await t.commit();

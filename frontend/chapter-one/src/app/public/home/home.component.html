@@ -44,7 +44,7 @@
     <section class="author-section">
         <h2 class="section-title">Featured Authors</h2>
         <div class="author-grid">
-            <div class="author-card" *ngFor="let author of authors$ | async; trackBy:trackByAuthorId" [ngStyle]="{'background-image': 'url(http://localhost:8080' + author.image + ')'}" role="button" tabindex="0" aria-label="Read more about about author" (click)="navigate(author.id)">
+            <div class="author-card" *ngFor="let author of authors$ | async; trackBy:trackByAuthorId" [ngStyle]="{'background-image': 'url(' + author.image + ')'}" role="button" tabindex="0" aria-label="Read more about about author" (click)="navigate(author.id)">
                 <h3 >
                     <span>{{author.name}}</span>
                     <ng-icon name="heroArrowLongRight" size="18"></ng-icon>

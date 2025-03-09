@@ -16,7 +16,6 @@ export default class AddressController {
       latitude,
       longitude,
       houseNo,
-      primary,
       area,
       landmark,
       contactNumber,
@@ -31,7 +30,6 @@ export default class AddressController {
         longitude,
         houseNo,
         area,
-        primary,
         landmark: landmark || null,
         contactNumber: contactNumber || null,
         instructions: instructions || null,
@@ -169,8 +167,8 @@ export default class AddressController {
           return { status: 403, body: { message: 'Not authorized to update this address' } }; 
         }
 
-        await Address.update({ primary: false }, { where: { user: userId }, transaction: t });
-        await existingAddress.update({ primary: true }, { transaction: t });
+        // await Address.update({ primary: false }, { where: { user: userId }, transaction: t });
+        // await existingAddress.update({ primary: true }, { transaction: t });
 
         return { status: 200, body: { msg: 'Address set as primary' } }; 
       });

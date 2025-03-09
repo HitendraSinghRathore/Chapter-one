@@ -42,12 +42,21 @@ export const publicBooksReducer = createReducer(
     ...state,
     pagination: { ...state.pagination, page, limit }
   })),
+  on(PublicBookActions.loadPublicBookDetails, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+    selectedBook: null
+  })),
   on(PublicBookActions.loadPublicBookDetailsSuccess, (state, { book }) => ({
     ...state,
+    loading: false,
+    error: null,
     selectedBook: book
   })),
   on(PublicBookActions.loadPublicBookDetailsFailure, (state, { error }) => ({
     ...state,
     error,
+    loading: false,
   }))
 );

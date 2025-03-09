@@ -22,7 +22,9 @@
                   <ng-icon name="hero-shopping-bag" size="20"></ng-icon>
                 </span>
                 <span class="link-text">Cart</span>
-                <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+                <ng-container *ngIf="cartCount | async as cartCount">
+                  <span class="cart-count" >{{ cartCount }}</span>
+                </ng-container>
               </a>
             </nav>
         </div>
@@ -37,7 +39,6 @@
         
           </div>
           <div class="user-actions" *ngIf="userProfile.email else userLogin">
-            <button mat-stroked-button (click)="editProfile()">Edit Profile</button>
             <button mat-stroked-button (click)="logout()">Logout</button>
           </div>
           <ng-template #userLogin>
@@ -51,7 +52,7 @@
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
       <div class="header">
-         <app-header (sidenavToggle)="drawer.toggle()" [cartCount]="cartCount" [user]="userProfile$ | async" ></app-header>
+         <app-header (sidenavToggle)="drawer.toggle()" [cartCount]="cartCount | async" [user]="userProfile$ | async" ></app-header>
     </div>
     <div class="content">
       <router-outlet></router-outlet>

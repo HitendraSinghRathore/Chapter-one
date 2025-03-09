@@ -12,7 +12,7 @@ router.get('/', asyncHandler(CartController.getCart));
 router.post(
   '/add',
   [
-    check('bookId').isInt().withMessage('Book id must be an integer'),
+    check('id').isInt().withMessage('Book id must be an integer'),
     check('quantity').isInt({ min: 1 }).withMessage('Quantity must be at least 1'),
   ],
   asyncHandler(CartController.addToCart)

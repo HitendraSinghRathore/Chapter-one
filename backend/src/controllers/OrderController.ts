@@ -14,14 +14,14 @@ export default class OrderController {
   static async checkout(req: Request, res: Response): Promise<Response> {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-    const { addressId, cartId, paymentMode } = req.body;
+    const { addressId, paymentMode } = req.body;
     const userId = req.user?.id?.toString();
     if (!userId) return res.status(400).json({ message: 'User identifier not found' });
 
     const t = await sequelize.transaction();
     try {
       const cart = await Cart.findOne({
-        where: { id: cartId, user: userId },
+        where: { user: userId },
         include: [{ model: CartItem, as: 'items', include: [{ model: Book, as: 'book' }] }],
         transaction: t,
       });
@@ -30,7 +30,7 @@ export default class OrderController {
         return res.status(404).json({ message: 'Cart not found' });
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cartItems = cart.getItems() as unknown as any[];
+      const cartItems = await cart.getItems() as unknown as any[];
       if (!cartItems || cartItems?.length === 0) {
         await t.rollback();
         return res.status(400).json({ message: 'Cart is empty' });
@@ -39,22 +39,22 @@ export default class OrderController {
       let orderTotal = 0;
       const orderItemsData = [];
       for (const item of cartItems) {
-        const book = item.getDataValue('book');
+        const book = await item.getBook();
         if (!book) continue;
-        if (item.quantity > book.sellableQuantity) {
+        if (item.quantity > book.getDataValue('sellableQuantity')) {
           await t.rollback();
           return res.status(400).json({
             message: `Insufficient stock for book ${book.name}`,
-            bookId: book.id,
-            available: book.sellableQuantity,
+            bookId: book.getDataValue('id'),
+            available: book.getDataValue('sellableQuantity'),
             requested: item.quantity,
           });
         }
-        const unitPrice = parseFloat(book.price.toString());
+        const unitPrice = parseFloat(book.getDataValue('price').toString());
         const totalCost = unitPrice * item.quantity;
         orderTotal += totalCost;
         orderItemsData.push({
-          bookId: book.id,
+          bookId: book.getDataValue('id'),
           quantity: item.quantity,
           unitPrice,
           totalCost,

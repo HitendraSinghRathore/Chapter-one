@@ -10,7 +10,6 @@ router.post(
   '/checkout',
   [
     check('addressId').isInt().withMessage('Address id must be an integer'),
-    check('cartId').isInt().withMessage('Cart id must be an integer'),
     check('paymentMode').notEmpty().withMessage('Payment mode is required'),
   ],
   authMiddleware(),

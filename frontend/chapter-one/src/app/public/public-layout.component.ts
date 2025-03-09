@@ -13,6 +13,8 @@ import { selectUserProfile } from "../store/auth.selectors";
 import { FooterComponent } from "../common/footer/footer.component";
 import { MatFormField, MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
+import { selectCartTotalCount } from "../store/cart/cart.selectors";
+import * as CartActions from '../store/cart/cart.actions';
 
 
 @Component({
@@ -34,10 +36,12 @@ export class PublicLayoutComponent implements OnInit {
     userProfile$: Observable<UserProfile | null> = this.store.select(selectUserProfile);
     searchQuery: string = '';
     isListRoute = window.location.href.includes('/list');
+    cartCount: Observable<number | null> = this.store.select(selectCartTotalCount);
 
     
-      cartCount = 3;
     ngOnInit(): void {
+      this.store.dispatch(CartActions.loadCart());
+
        this.router.events.pipe(
         filter(event => event instanceof NavigationEnd)
       ).subscribe((event:NavigationEnd) => {
