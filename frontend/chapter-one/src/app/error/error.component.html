@@ -1,0 +1,72 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #drawer class="menu-drawer" mode="over">
+      <div class="menu-content">
+        <div>
+          <div class="search-container" *ngIf="!isListRoute">
+            <mat-form-field appearance="outline" class="search-container--field">
+              <input matInput placeholder="Search" class="search-input" type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"/>
+              <button mat-icon-button matPrefix class="search-container--button" (click)="onSearch()">
+                <ng-icon name="hero-magnifying-glass" size="22"></ng-icon>
+              </button>
+          </mat-form-field>
+          </div>
+            <nav class="menu-links">
+              <a routerLink="/list" class="menu-link">
+                <span class="link-icon">
+                  <ng-icon name="hero-chevron-down" size="20"></ng-icon>
+                </span>
+                <span class="link-text">Explore</span>
+              </a>
+              <a routerLink="/cart" class="menu-link">
+                <span class="link-icon">
+                  <ng-icon name="hero-shopping-bag" size="20"></ng-icon>
+                </span>
+                <span class="link-text">Cart</span>
+                <ng-container *ngIf="cartCount | async as cartCount">
+                  <span class="cart-count" >{{ cartCount }}</span>
+                </ng-container>
+              </a>
+            </nav>
+        </div>
+        <ng-container *ngIf="userProfile$ | async as userProfile">
+        <div class="user-profile">
+          <div class="user-info">
+           
+               
+              
+            <p class="user-name"> {{ userProfile.name }}</p>
+            <p class="user-email" *ngIf="userProfile.email"> {{ userProfile.email }}</p>
+        
+          </div>
+          <div class="user-actions" *ngIf="userProfile.email else userLogin">
+            <button mat-stroked-button (click)="logout()">Logout</button>
+          </div>
+          <ng-template #userLogin>
+            <button mat-stroked-button extended (click)="login()" class="login-btn">
+                Login</button>
+          </ng-template>
+        </div>
+        </ng-container>
+      </div>
+      
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+      <div class="header">
+         <app-header (sidenavToggle)="drawer.toggle()" [cartCount]="cartCount | async" [user]="userProfile$ | async" ></app-header>
+    </div>
+    <div class="content">
+        <div class="error-container">
+            <img src="Page-Not-Found-1--Streamline-Milano.png" alt="Page not found" />
+            <div>
+            <h1>Page not found</h1>
+            <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+        </div>
+            
+            <button mat-raised-button color="primary" (click)="goBack()">Home</button>
+        </div>
+    </div>
+    <div class="footer">
+      <app-footer ></app-footer>
+    </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
