@@ -17,7 +17,7 @@
                 </ng-container>
                 <ng-container matColumnDef="user">
                   <mat-header-cell *matHeaderCellDef> Customer Name </mat-header-cell>
-                  <mat-cell *matCellDef="let order"> {{ order.user.name }} </mat-cell>
+                  <mat-cell *matCellDef="let order"> {{ order.address.contactName }} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="total">
                     <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
@@ -30,10 +30,15 @@
                
                 <ng-container matColumnDef="status">
                   <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-                  <mat-cell *matCellDef="let order"> {{ order.status }} </mat-cell>
+                  <mat-cell *matCellDef="let order"> 
+                    <span class="order-pill">{{ order.status }} </span></mat-cell>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <ng-container matColumnDef="createdAt">
+                  <mat-header-cell *matHeaderCellDef> Order Date </mat-header-cell>
+                  <mat-cell *matCellDef="let order"> {{ order.createdAt | date:'medium' }} </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
             </ng-container>
           </ng-container>

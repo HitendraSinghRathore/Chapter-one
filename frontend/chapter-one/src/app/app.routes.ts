@@ -18,5 +18,10 @@ export const routes: Routes = [
         children: adminRoutes,
         canActivate: [AdminGuard],
         canActivateChild: [AdminGuard],
+    },
+    {
+        path: '**',
+        loadComponent: async () => (await import('./error/error.component')).ErrorComponent,
+       
     }
 ];
