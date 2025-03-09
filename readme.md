@@ -1,8 +1,5 @@
 # Chapter One
 
-![Project Banner](assets/banner.jpg)
-![Logo](assets/logo.png)
-
 ## Overview
 
 **Chapter One** is a full-stack web application designed to manage orders, users, carts, books, genres, and categories with full CRUD capabilities. This project brings together all the moving parts of a complete full-stack solution, making it an ideal proof-of-concept (PoC) that can be further enhanced with additional features.
