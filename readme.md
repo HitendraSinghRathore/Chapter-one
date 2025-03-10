@@ -111,7 +111,7 @@ The current code base enforces strict coding standards through:
 
 ## GridFS Rationale
 
-**GridFS** is implemented to provide a zero-cost solution for handling image uploads and storage. It efficiently updates, stores, and streams images, ensuring that media assets are delivered smoothly to the frontend without incurring extra costs.
+**GridFS** is implemented to provide a zero-cost solution for handling image uploads and storage. It efficiently updates, stores, and streams images, ensuring that media assets are delivered smoothly to the frontend without incurring extra costs. Which gives me the ability to focus on the core functionality of the application.
 
 ## Future Enhancements
 

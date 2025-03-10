@@ -16,7 +16,6 @@ import orderRoutes from './router/order.routes';
 
 const app = express();
 
-
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
