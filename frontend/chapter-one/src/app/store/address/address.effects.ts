@@ -70,7 +70,6 @@ export class AddressEffects {
       tap(() => {
         this.snackBar.open('Address created successfully', 'OK', { duration: 3000 });
         this.location.back();
-        // this.router.navigate(['/checkout']);
       })
     ),
     { dispatch: false }
