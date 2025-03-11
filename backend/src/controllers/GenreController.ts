@@ -97,12 +97,6 @@ export default class GenreController {
             if (!sourceGenre) {
                 return res.status(404).json({ message: 'Genre not found' });
             }
-            // const associatedBooksCount = await sourceGenre.getBooksCount();
-            // if (associatedBooksCount > 0) {
-            //   return res.status(400).json({
-            //     message: 'Cannot delete genre: it is associated with one or more books.'
-            //   });
-            // }
             const genre = await Genre.destroy({ where: { id } });
             return res.status(200).json(genre);
         } catch (error) {

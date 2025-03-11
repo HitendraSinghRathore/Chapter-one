@@ -66,7 +66,6 @@ export async function syncDatabase(force = false): Promise<void> {
     await sequelize.sync({ force });
     console.log('All models synchronized successfully.');
 
-    // starting seeding admin
     await seedAdmin();
     console.log('Admin user seeded successfully.');
   } catch (error) {

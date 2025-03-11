@@ -106,7 +106,6 @@ class Config {
     return this.config.get(key) as unknown as T;
   }
 
-  // Typed getters for convenience
   public get port(): number {
     return this.config.get('port');
   }
