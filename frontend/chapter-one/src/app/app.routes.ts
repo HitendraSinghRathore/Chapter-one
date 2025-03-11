@@ -21,7 +21,7 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        loadComponent: async () => (await import('./error/error.component')).ErrorComponent,
+        loadComponent: async () => (await import('./error/error.component')).ErrorComponent
        
     }
 ];
