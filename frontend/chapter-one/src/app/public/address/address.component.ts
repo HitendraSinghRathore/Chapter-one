@@ -70,7 +70,6 @@ export class AddressComponent implements OnInit, OnDestroy {
         this.addressId = this.route.snapshot.params['id'] ? Number(this.route.snapshot.params['id']) : null;
         this.isEdit = !!this.addressId;
         if (this.isEdit && this.addressId) {
-            // Load the address details from the store.
             this.store.dispatch(AddressActions.loadAddressDetails({ id: this.addressId }));
             this.subs.add(
                 this.store.select(selectSelectedAddress).subscribe(address => {
