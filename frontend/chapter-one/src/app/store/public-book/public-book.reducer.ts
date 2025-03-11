@@ -36,7 +36,7 @@ export const publicBooksReducer = createReducer(
   on(PublicBookActions.updatePublicBookFilters, (state, { filters }) => ({
     ...state,
     filters: { ...state.filters, ...filters },
-    pagination: { ...state.pagination, page: 1 }  // reset page on filter change
+    pagination: { ...state.pagination, page: 1 }  
   })),
   on(PublicBookActions.changePublicBookPage, (state, { page, limit }) => ({
     ...state,
