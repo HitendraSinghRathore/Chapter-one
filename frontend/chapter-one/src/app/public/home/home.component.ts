@@ -12,7 +12,6 @@ import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { heroArrowLongRight, heroBookOpen, heroHeart, heroRocketLaunch, heroStar } from "@ng-icons/heroicons/outline";
 import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
-// Import the ng-icon component if needed (uncomment and adjust based on your project setup)
 
 
 @Component({
