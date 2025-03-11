@@ -10,10 +10,6 @@ export const adminRoutes: Routes = [
         path: 'order',
         loadComponent: async () => (await import('./orders/admin-order.component')).AdminOrderComponent,
       },
-    //   {
-    //     path: 'collection',
-    //     loadComponent: async () => (await import('./collections/admin-collection.component')).AdminCollectionComponent,
-    //   },
       {
         path: 'author',
         loadComponent: async () => (await import('./author/author.component')).AuthorComponent,
