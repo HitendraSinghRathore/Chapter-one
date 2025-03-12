@@ -2,7 +2,6 @@ import convict, { Path } from 'convict';
 import { AppConfig, MongoConfig, PostgresConfig } from '../types/interface.types';
 
 
-
 class Config {
   private config: convict.Config<AppConfig>;
 
