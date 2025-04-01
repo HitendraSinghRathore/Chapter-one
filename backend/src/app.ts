@@ -49,6 +49,7 @@ app.get('/healthz', (req: Request, res: Response) => {
     res.status(200).json({ status: 'OK', message: 'Service is healthy' });
   });
 
+  
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error('Unhandled error:', err);
